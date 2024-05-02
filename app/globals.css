@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.bgImage {
+  background-image: url(../public/assets/bgimage.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.swiper-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 0;
+  margin-top: 20vh;
+}
+
+.swiper-pagination-bullet {
+  width: 10px;
+  height: 10px;
+  background-color: #ccc;
+  border-radius: 50%;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #000;
+}
+.swiper-pagination1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 0;
+  /* margin-top: 20vh; */
+}
+
+.swiper-pagination-bullet1 {
+  width: 10px;
+  height: 10px;
+  background-color: #ccc;
+  border-radius: 50%;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.swiper-pagination-bullet-active1 {
+  background-color: #178eab;
+}
