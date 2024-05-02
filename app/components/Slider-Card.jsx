@@ -8,6 +8,7 @@ import Link from "next/link";
 // ! lib imports
 import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
+import { Linden_Hill } from "next/font/google";
 
 const SliderCardComp = ({ data }) => {
   const [start, setStart] = useState(0);
@@ -35,35 +36,37 @@ const SliderCardComp = ({ data }) => {
 
         {data.slice(start, start + 4).map((item, idx) => {
           return (
-            <div
-              key={idx}
-              className="bg-[#FFFFFF] md:w-[297px] w-[211px] md:min-h-[321px] min-h-[303px] h-auto p-8 gap-4 rounded-2xl drop-shadow-sm flex flex-col justify-start items-start duration-300 text-start"
-            >
-              {/* logo  */}
-              <Image
-                src={item.logo_src}
-                alt="logo"
-                className="object-contain w-[72px] h-[67px]"
-              />
+            <Link href={"/companies/companiesDetail"} passHref>
+              <div
+                key={idx}
+                className="bg-[#FFFFFF] md:w-[297px] w-[211px] md:min-h-[321px] min-h-[303px] h-auto p-8 gap-4 rounded-2xl drop-shadow-sm flex flex-col justify-start items-start duration-300 text-start"
+              >
+                {/* logo  */}
+                <Image
+                  src={item.logo_src}
+                  alt="logo"
+                  className="object-contain w-[72px] h-[67px]"
+                />
 
-              {/* title */}
-              <h1 className="text-[#000000] w-full h-auto flex flex-wrap justify-center items-center md:font-bold font-semibold md:text-xl text-[16px]">
-                {item.title}
-              </h1>
+                {/* title */}
+                <h1 className="text-[#000000] w-full h-auto flex flex-wrap justify-center items-center md:font-bold font-semibold md:text-xl text-[16px]">
+                  {item.title}
+                </h1>
 
-              {/* description */}
-              <p className="w-full h-auto flex flex-wrap justify-center items-center text-[#909198] font-normal md:text-sm text-xs ">
-                {item.description}
-              </p>
+                {/* description */}
+                <p className="w-full h-auto flex flex-wrap justify-center items-center text-[#909198] font-normal md:text-sm text-xs ">
+                  {item.description}
+                </p>
 
-              {/* job button */}
-              <Link href={"/jobs"} passHref>
-                <button className="hover:bg-[#3F6EEC] bg-transparent drop-shadow-sm hover:text-white text-black duration-300 border hover:border-none text-center h-10 w-[130px] font-normal text-xs flex justify-center rounded-[28px] items-center gap-2">
-                  <span>{`View Job`}</span>
-                  <span>{`>`}</span>
-                </button>
-              </Link>
-            </div>
+                {/* job button */}
+                <Link href={"/jobs"} passHref>
+                  <button className="hover:bg-[#3F6EEC] bg-transparent drop-shadow-sm hover:text-white text-black duration-300 border hover:border-none text-center h-10 w-[130px] font-normal text-xs flex justify-center rounded-[28px] items-center gap-2">
+                    <span>{`View Job`}</span>
+                    <span>{`>`}</span>
+                  </button>
+                </Link>
+              </div>
+            </Link>
           );
         })}
 
