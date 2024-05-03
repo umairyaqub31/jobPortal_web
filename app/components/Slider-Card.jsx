@@ -37,45 +37,24 @@ const SliderCardComp = ({ data }) => {
 
         {data.slice(start, start + 4).map((item, idx) => {
           return (
-            <Link href={"/companies/companiesDetail"} passHref>
-              <div
-                key={idx}
-                className="bg-[#FFFFFF] md:w-[297px] w-[211px] md:min-h-[321px] min-h-[303px] h-auto p-8 gap-4 rounded-2xl drop-shadow-sm flex flex-col justify-start items-start duration-300 text-start"
-              >
+            <Link href={"/companies/companiesDetail"} passHref key={idx}>
+              <div className="bg-[#FFFFFF] md:w-[297px] w-[211px] md:min-h-[321px] min-h-[303px] h-auto p-8 gap-4 rounded-2xl drop-shadow-sm flex flex-col justify-start items-start duration-300 text-start">
                 {/* logo  */}
                 <Image
-                  src={item.logo_src}
+                  src={Figma_logo}
                   alt="logo"
                   className="object-contain w-[72px] h-[67px]"
                 />
-            <div
-              key={idx}
-              className="bg-[#FFFFFF] md:w-[297px] w-[211px] md:min-h-[321px] min-h-[303px] h-auto p-8 gap-4 rounded-2xl drop-shadow-sm flex flex-col justify-start items-start duration-300 text-start"
-            >
-              {/* logo  */}
-              <Image
-                src={Figma_logo}
-                alt="logo"
-                className="object-contain w-[72px] h-[67px]"
-              />
 
                 {/* title */}
                 <h1 className="text-[#000000] w-full h-auto flex flex-wrap justify-center items-center md:font-bold font-semibold md:text-xl text-[16px]">
-                  {item.title}
+                  {item.name}
                 </h1>
-              {/* title */}
-              <h1 className="text-[#000000] w-full h-auto flex flex-wrap justify-center items-center md:font-bold font-semibold md:text-xl text-[16px]">
-                {item.name}
-              </h1>
 
                 {/* description */}
                 <p className="w-full h-auto flex flex-wrap justify-center items-center text-[#909198] font-normal md:text-sm text-xs ">
-                  {item.description}
+                  {item.about}
                 </p>
-              {/* description */}
-              <p className="w-full h-auto flex flex-wrap justify-center items-center text-[#909198] font-normal md:text-sm text-xs ">
-                {item.about}
-              </p>
 
                 {/* job button */}
                 <Link href={"/jobs"} passHref>

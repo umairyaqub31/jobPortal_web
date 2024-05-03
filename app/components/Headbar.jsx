@@ -21,6 +21,7 @@ import exit from "@/public/exit.png";
 import MobileMenuComp from "./Mobile-Menu";
 import { useDispatch, useSelector } from "react-redux";
 import { signOut } from "../redux";
+import { searchJobs } from "../services";
 
 const HeadBarComp = ({
   visible,
@@ -29,6 +30,7 @@ const HeadBarComp = ({
   jobs,
   noBlog,
   searchBar,
+  onDataReceived,
 }) => {
   // const [user, setUser] = useState(false);
   const [mobileMenu, setMobileMenu] = useState(false);
@@ -40,6 +42,26 @@ const HeadBarComp = ({
     dispatch(signOut());
   };
   const router = useRouter();
+
+  const [jobtitle, setJobtitle] = useState("IT"); // State to store job title
+  const [companyname, setCompanyname] = useState("");
+  const [data, setData] = useState([]);
+
+  console.log("COMpane name", companyname);
+  console.log("jobtitle name", jobtitle);
+
+  const jobSearching = () => {
+    console.log("Before Api hit ", jobtitle, companyname);
+    searchJobs(jobtitle, companyname)
+      .then((res) => {
+        console.log("ress....", res);
+        onDataReceived(res.data);
+      })
+      .catch((err) => {
+        console.log("err.....", err?.response?.data?.message);
+      });
+  };
+
   return (
     <>
       {visible && (
@@ -79,18 +101,24 @@ const HeadBarComp = ({
                     htmlFor="search"
                     className="h-10 min-w-[239px] w-auto border rounded-3xl py-2 px-4 flex justify-start items-center space-x-2"
                   >
-                    <button>
+                    <button onClick={jobSearching}>
                       <CiSearch className="w-6 h-6 text-[#3F6EEC]" />
                     </button>
                     <input
                       type="search"
-                      placeholder={`Search Jobs By ‘cmpany’`}
+                      placeholder={`Search Jobs By ‘company’`}
                       className="text-sm font-normal text-[#909198] outline-none bg-transparent"
+                      onChange={(e) => {
+                        // setJobtitle(e.target.value);
+                        setCompanyname(e.target.value);
+                      }}
                     />
                   </label>
                 </>
               )}
-
+              {/* <button className="bg-[#3F6EEC] text-white  rounded-[14px] px-4 py-1">
+                Search
+              </button> */}
               {help && (
                 <div className="flex items-center justify-start w-auto h-auto gap-2 text-center">
                   <Image

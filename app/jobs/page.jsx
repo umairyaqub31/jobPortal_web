@@ -15,7 +15,11 @@ import HeadBarComp from "@/app/components/Headbar";
 
 const JobsPage = () => {
   const [filerOpen, setFilterOpen] = useState(false);
-
+  const [jobData, setJobData] = useState([]);
+  const handleDataReceived = (data) => {
+    setJobData(data);
+  };
+  console.log("Job data in MAin Page is ", jobData);
   return (
     <>
       <HeadBarComp
@@ -23,6 +27,7 @@ const JobsPage = () => {
         isLoggedIn={true}
         searchBar={true}
         jobs={true}
+        onDataReceived={handleDataReceived}
       />
 
       {filerOpen && <FilterComp setFilterOpen={setFilterOpen} />}

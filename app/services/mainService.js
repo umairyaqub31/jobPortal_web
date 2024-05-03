@@ -17,3 +17,9 @@ export const topCompanies = (pageno) => {
 export const getJobs = () => {
   return HTTP_CLIENT.get(ENDPOINTS.CAND_GETJOB);
 };
+
+export const searchJobs = (jobtitle, companyname) => {
+  return HTTP_CLIENT.get(
+    `${ENDPOINTS.CAND_SEARCHJOB}?jobTitle=${jobtitle}&companyName=${companyname}`
+  );
+};

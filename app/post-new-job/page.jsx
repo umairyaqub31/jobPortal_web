@@ -27,17 +27,17 @@ const jobIndustryData = ["IT", "Construction", "Agriculture"];
 
 const PostNewJobPage = () => {
   const [formData, setFormData] = useState({
-    openingNumber: "1",
-    jobType: "Computer forensic analyst",
-    gender: "Male",
-    qualification: "Bsc",
-    jobBenefits: "Medical coverage",
-    language: "English",
-    workingDays: "1",
-    jobShift: "Morning",
+    openingNumber: "",
+    jobRole: "",
+    gender: "",
+    qualification: "",
+    jobBenefits: "",
+    language: "",
+    workingDays: "",
+    jobShift: "",
     // jobCategory: "Software developer",
-    jobArea: "Mumbai",
-    jobIndustry: "IT",
+    jobArea: "",
+    jobIndustry: "",
     jobTitle: "",
     jobDescription: "",
   });
@@ -46,6 +46,7 @@ const PostNewJobPage = () => {
   const router = useRouter();
 
   const handleOnSubmit = (e) => {
+    console.log(",,,......................", formData);
     e.preventDefault();
 
     let isEmpty = false;
@@ -61,7 +62,7 @@ const PostNewJobPage = () => {
       setLoading(true);
       let params = {
         jobOpenings: formData.openingNumber,
-        jobType: formData.jobType,
+        jobRole: formData.jobRole,
         jobTitle: formData.jobTitle,
         gender: formData.gender,
         qualification: formData.qualification,
@@ -138,17 +139,17 @@ const PostNewJobPage = () => {
 
                   <div className="md:w-[28vw] w-full h-auto space-y-2">
                     <label
-                      htmlFor="job type"
+                      htmlFor="job Role"
                       className="text-[#434343] text-sm font-semibold"
                     >
-                      Job Type
+                      Job Role
                     </label>
                     <select
                       onChange={(e) =>
-                        setFormData({ ...formData, jobType: e.target.value })
+                        setFormData({ ...formData, jobRole: e.target.value })
                       }
-                      name="job type"
-                      id="job type"
+                      name="job Role"
+                      id="job Role"
                       className="w-full h-[55px] px-4 bg-white outline-none rounded-2xl"
                     >
                       {JobTypes.map((v) => (
