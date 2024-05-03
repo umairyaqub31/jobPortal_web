@@ -2,13 +2,13 @@
 
 // ! imports
 import React, { useState } from "react";
+import Figma_logo from "@/public/figma-logo.png";
 import Image from "next/image";
 import Link from "next/link";
 
 // ! lib imports
 import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
-
 const SliderCardComp = ({ data }) => {
   const [start, setStart] = useState(0);
 
@@ -41,19 +41,19 @@ const SliderCardComp = ({ data }) => {
             >
               {/* logo  */}
               <Image
-                src={item.logo_src}
+                src={Figma_logo}
                 alt="logo"
                 className="object-contain w-[72px] h-[67px]"
               />
 
               {/* title */}
               <h1 className="text-[#000000] w-full h-auto flex flex-wrap justify-center items-center md:font-bold font-semibold md:text-xl text-[16px]">
-                {item.title}
+                {item.name}
               </h1>
 
               {/* description */}
               <p className="w-full h-auto flex flex-wrap justify-center items-center text-[#909198] font-normal md:text-sm text-xs ">
-                {item.description}
+                {item.about}
               </p>
 
               {/* job button */}

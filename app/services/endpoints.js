@@ -13,6 +13,8 @@ const ENDPOINTS = {
   //.....................Candidate...............................
   CAND_LOGIN: "candidate/login",
   CAND_SIGN_UP: "candidate/register",
+  CAND_TOPCOMPANIES: "candidate/getTopCompanies",
+  CAND_GETJOB: "candidate/getJobs",
 };
 
 export { BASE_URL, ENDPOINTS };
