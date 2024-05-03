@@ -23,11 +23,13 @@ const SearchBarComp = () => {
           <button>
             <CiSearch className="w-6 h-6 text-[#3F6EEC]" />
           </button>
-          <input
-            type="search"
-            placeholder={`Search Jobs By company`}
-            className="text-sm font-normal text-[#909198] outline-none bg-transparent w-full"
-          />
+          <Link href={"/jobs"}>
+            <input
+              type="search"
+              placeholder={`Search Jobs By company`}
+              className="text-sm font-normal text-[#909198] outline-none bg-transparent w-full"
+            />
+          </Link>
         </label>
 
         {/* divider */}
