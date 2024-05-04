@@ -19,12 +19,14 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
+import { getJobRoles } from "../services";
 const TradingJobsComp = () => {
   const [isPaginationVisible, setIsPaginationVisible] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [swiper, setSwiper] = useState(null);
   const [windowWidth, setWindowWidth] = useState(0);
   const totalSlides = 3;
+  const [trendingrole, setTrendingRole] = useState({});
 
   // Effect to update pagination visibility based on window width
   useEffect(() => {
@@ -57,6 +59,22 @@ const TradingJobsComp = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  const fetchTrendingRoles = () => {
+    getJobRoles()
+      .then((res) => {
+        console.log("Trending Job API...............", res);
+        setTrendingRole(res.data);
+      })
+      .catch((err) => {
+        console.log("err.....", err?.response?.data?.message);
+      });
+  };
+  useEffect(() => {
+    fetchTrendingRoles();
+  }, []);
+
+  console.log("DONE..............", trendingrole);
+
   const CustomPagination = ({ current, total, swiper }) => {
     return (
       <div className="swiper-pagination">
@@ -78,7 +96,7 @@ const TradingJobsComp = () => {
       {/* ?main comp */}
       <div className="w-full h-auto flex flex-col justify-center items-center text-center bg-white md:gap-8 gap-4 md:p-[100px] p-4">
         {/* quote  */}
-        <h1 className="w-full h-auto md:text-[36px] text-[20px] font-bold">{`Trending Job Rules`}</h1>
+        <h1 className="w-full h-auto md:text-[36px] text-[20px] font-bold">{`Trending Job Roles`}</h1>
 
         {/* card container */}
         <div className="flex items-center justify-center w-full h-auto gap-0 overflow-x-hidden flex-nowrap ">
@@ -114,7 +132,7 @@ const TradingJobsComp = () => {
             // onSwiper={(swiper) => console.log(swiper)}
             // onSlideChange={() => console.log("slide change")}
           >
-            {TrendingCardData?.map((item, idx) => {
+            {Object.values(trendingrole)?.map((item, idx) => {
               return (
                 <SwiperSlide key={idx}>
                   <div className="cursor-pointer min-w-[305px] w-full h-[113px] rounded-2xl border gap-4 flex justify-center items-center">
@@ -127,8 +145,8 @@ const TradingJobsComp = () => {
                     </div>
 
                     <div className="w-auto h-full flex flex-col justify-center items-start text-[#2D432C] gap-4 ">
-                      <h1 className="text-2xl font-semibold">{item.title}</h1>
-                      <p className="text-sm font-normal ">{item.desc}</p>
+                      <h1 className="text-2xl font-semibold">{item.jobRole}</h1>
+                      <p className="text-sm font-normal ">{item.count}</p>
                     </div>
                   </div>
                 </SwiperSlide>
@@ -175,7 +193,7 @@ const TradingJobsComp = () => {
             onSwiper={(swiper) => console.log(swiper)}
             onSlideChange={() => console.log("slide change")}
           >
-            {TrendingCardData?.map((item, idx) => {
+            {/* {TrendingCardData?.map((item, idx) => {
               return (
                 <SwiperSlide key={idx}>
                   <div className="cursor-pointer min-w-[305px] w-full h-[113px] rounded-2xl border gap-4 flex justify-center items-center">
@@ -194,7 +212,7 @@ const TradingJobsComp = () => {
                   </div>
                 </SwiperSlide>
               );
-            })}
+            })} */}
           </Swiper>
         </div>
 

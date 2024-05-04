@@ -4,23 +4,34 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import upload from "@/public/assets/upload.svg";
 import { GetUserCV } from "@/app/actions";
+import { uploadFile } from "../services";
 
 const UploadCVComp = () => {
   const [image, setImage] = useState([]);
-  console.log("image :::");
-  console.log(image);
+  console.log("image :::", image);
+
+  const fileUpload = () => {
+    uploadFile(image)
+      .then((res) => {
+        console.log("Upload File API...............", res);
+      })
+      .catch((err) => {
+        console.log("err.....", err?.message);
+      });
+  };
 
   useEffect(() => {
     GetUserCV(image);
   }, [image]);
 
-  console.log(image);
+  console.log(".....He", image);
   return (
     <>
       <div className="w-full min-h-[70vh] h-auto flex flex-col justify-start items-center text-[#434343] gap-6 lg:py-8 py-4 lg:px-14 px-4 duration-300">
         {/* upload resume input */}
         <div className="flex flex-col items-start justify-center w-full h-auto space-y-6 flex-nowrap">
           <label
+            onClick={fileUpload}
             htmlFor="Employee Type"
             className="block py-1 text-xl font-bold"
           >

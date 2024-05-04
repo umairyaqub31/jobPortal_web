@@ -23,3 +23,21 @@ export const searchJobs = (jobtitle, companyname) => {
     `${ENDPOINTS.CAND_SEARCHJOB}?jobTitle=${jobtitle}&companyName=${companyname}`
   );
 };
+
+export const getJobRoles = () => {
+  return HTTP_CLIENT.get(ENDPOINTS.CAND_GETJOBROLES);
+};
+
+export const getCompanyJobs = (pageno, companyId) => {
+  return HTTP_CLIENT.get(
+    `${ENDPOINTS.CAND_GETCOMPANYJOB}?page=${pageno}&companyId=${companyId}`
+  );
+};
+
+export const getjobDetails = (jobId) => {
+  return HTTP_CLIENT.get(`${ENDPOINTS.CAND_GETJOBDETAILS}?jobId=${jobId}`);
+};
+
+export const uploadFile = (params) => {
+  return HTTP_CLIENT.post(ENDPOINTS.UPLOAD_FILE, params);
+};

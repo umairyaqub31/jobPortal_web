@@ -6,6 +6,9 @@ const initialState = {
   fcmToken: null,
   isLoggedIn: false,
   phoneNumber: "",
+  companyName: "",
+  companyId: "",
+  jobId: "",
 };
 
 export const userReducer = createSlice({
@@ -33,6 +36,15 @@ export const userReducer = createSlice({
       state.authToken = null;
       state.isLoggedIn = false;
     },
+    setCompanyName: (state, action) => {
+      state.companyName = action.payload;
+    },
+    setCompanyId: (state, action) => {
+      state.companyId = action.payload;
+    },
+    setJobId: (state, action) => {
+      state.jobId = action.payload;
+    },
   },
 });
 
@@ -43,6 +55,9 @@ export const {
   setAuthToken,
   setIsLoggedIn,
   setFcmToken,
+  setCompanyName,
+  setCompanyId,
+  setJobId,
 } = userReducer.actions;
 
 export default userReducer.reducer;

@@ -84,8 +84,7 @@ export const GetJobExperienceData = (data) => {
 };
 
 export const GetUserCV = (data) => {
-  console.log("job experience ::");
-  console.log(data);
+  console.log("data", data);
   storedValues.cvPath = data.cvPath;
 };
 

@@ -3,7 +3,7 @@
 // ! imports
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 // ! local imports
 import { JobDescriptionData } from "@/lib/data";
@@ -19,10 +19,31 @@ import Magnifer from "@/public/Magnifer.png";
 import MapPoint from "@/public/Map Point.png";
 import servion from "@/public/servion.png";
 import HeadBarComp from "@/app/components/Headbar";
+import { getjobDetails } from "../services";
+import { useSelector } from "react-redux";
 
 const JobDetailsPage = () => {
+  const { jobId } = useSelector((state) => state.root.user);
+  console.log("setJobId", jobId);
   const [seeMore, setSeeMore] = useState(false);
+  const [jobDetails, setJobDetails] = useState({});
 
+  const fetchJobDetails = () => {
+    getjobDetails(jobId)
+      .then((res) => {
+        console.log("Company Job API...............", res);
+        setJobDetails(res.data.job);
+      })
+      .catch((err) => {
+        console.log("err.....", err?.message);
+      });
+  };
+
+  useEffect(() => {
+    fetchJobDetails(jobId);
+  }, [jobId]);
+
+  console.log("jobDetails..............", jobDetails);
   return (
     <>
       <HeadBarComp
@@ -50,6 +71,7 @@ const JobDetailsPage = () => {
       {/* main container */}
       <div className="w-full min-h-screen h-auto bg-[#f8f8f8] flex md:flex-row flex-col justify-start gap-8 items-start py-8 duration-300 px-2 lg:px-[8%]">
         {/* left container */}
+
         <div className="flex flex-col items-start justify-start w-full h-full gap-4 mb-8 duration-300 text-start">
           {/* job opening container */}
           <div className="flex flex-col items-center justify-start w-full h-auto gap-4 px-4 py-6 bg-white rounded-2xl">
@@ -59,7 +81,7 @@ const JobDetailsPage = () => {
               <div className="w-auto h-auto flex flex-col justify-start items-center gap-2 text-[#393A44]">
                 {/* title */}
                 <h1 className="text-base font-semibold">
-                  {`Job Opening For Java Developer`}
+                  Job Open for the {jobDetails.jobTitle}
                 </h1>
 
                 {/* graduate */}
@@ -143,7 +165,9 @@ const JobDetailsPage = () => {
 
                 <span className="flex items-center justify-start w-auto h-auto gap-2 flex-nowrap">
                   Openings:
-                  <p className="text-[#000000] font-semibold">{`10`}</p>
+                  <p className="text-[#000000] font-semibold">
+                    {jobDetails.jobOpenings}
+                  </p>
                 </span>
 
                 {/* divider */}

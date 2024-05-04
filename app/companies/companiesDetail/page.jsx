@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { IoIosArrowForward } from "react-icons/io";
 import { BiSolidStar } from "react-icons/bi";
 import { PiHandbagSimpleBold } from "react-icons/pi";
@@ -7,14 +7,44 @@ import { CiLocationOn } from "react-icons/ci";
 import Image from "next/image";
 import Save from "@/public/saveVector.png";
 import Bag from "@/public/briefcase.png";
+import { useRouter } from "next/router";
 import Address from "@/public/file-validation.png";
+import ArrowForward from "@/public/Arrow Left Up.png";
 import Location from "@/public/location-01.png";
+import { useSelector } from "react-redux";
+import { getCompanyJobs } from "@/app/services";
+import { useDispatch } from "react-redux";
+import Link from "next/link";
+import { setJobId } from "@/app/redux";
 export default function CompaniesDetails() {
+  const dispatch = useDispatch();
+  const { companyName, companyId } = useSelector((state) => state.root.user);
+  console.log("COMPANY NAME IS", companyName);
+  console.log("COMPANY Id IS", companyId);
   const [selectedTab, setSelectedTab] = useState("Overview");
+  const [jobs, setJobs] = useState([]);
 
   const handletabs = (v) => {
     setSelectedTab(v);
   };
+
+  const fetchCompanyJOB = () => {
+    const pageno = 1;
+    getCompanyJobs(pageno, companyId)
+      .then((res) => {
+        console.log("Company Job API...............", res);
+        setJobs(res.data.jobs);
+      })
+      .catch((err) => {
+        console.log("err.....", err?.message);
+      });
+  };
+
+  useEffect(() => {
+    fetchCompanyJOB();
+  }, []);
+
+  console.log("JOBSSSSSSSSSSSSSSSSSSSss", jobs);
   return (
     <div>
       <div className="p-[75px]">
@@ -22,7 +52,7 @@ export default function CompaniesDetails() {
           <div className="bg-gray-300  rounded-[16px] shadow h-[152px] w-[152px]"></div>
           <div className="p-[21px]">
             <p className="font-semibold text-[30px] text-black">
-              Accolite Digital
+              {companyName}
             </p>
             <p
               className="font-semibold text-[18px] mt-[5px] "
@@ -155,6 +185,7 @@ export default function CompaniesDetails() {
             <p className="font-semibold text-[18px] mt-[28px] ">
               120 Jobs openings at Accolite Digital
             </p>
+
             <div className="flex items-center mt-[15px]">
               <select
                 className="font-medium text-[16px] border-2 px-3 py-1 mr-[11px] rounded-full"
@@ -187,369 +218,84 @@ export default function CompaniesDetails() {
               </select>
             </div>
 
-            <div className="bg-D9D9D9   rounded-[16px] p-[30px] mt-[28px] shadow h-[246px] w-[715px]">
-              <p className="font-semibold text-[18px]">Dot Net</p>
-              <div className="flex mt-[8px]">
-                <p className="font-medium text-[16px]">
-                  Accolite Software India Pvt Ltd
-                </p>
-                <BiSolidStar
-                  style={{ color: "#EDBD57" }}
-                  className="mx-[8px] h-[16px] w-[16px] mt-1"
-                />
-                <p className="font-medium text-[16px]">3.5</p>
-                <div className="border-r-2 mx-[8px]"></div>
-                <p className="font-medium text-[16px]">(678 Reviews)</p>
-              </div>
-              <div className="flex mt-[25px] items-center">
-                <div className="flex items-center mr-[30px] ">
+            {jobs.map((item, idx) => (
+              <div
+                key={idx}
+                className="bg-D9D9D9 rounded-[16px] p-[30px] mt-[28px] shadow h-[246px] w-[715px]"
+              >
+                <div className="flex justify-between">
+                  <p className="font-semibold text-[18px]">{item.jobTitle}</p>
+                  <button className="bg-[#3F6EEC] flex justify-center items-center text-center rounded-full font-normal text-[10px] w-auto h-[28px] text-white gap-2 py-1 px-2">
+                    <Link
+                      href={"/job-details"}
+                      onClick={() => dispatch(setJobId(item._id))}
+                    >
+                      {" "}
+                      <span>{`View Detail`}</span>{" "}
+                    </Link>
+                    <Image
+                      src={ArrowForward}
+                      alt="arrow"
+                      className="object-contain w-4 h-4"
+                    />
+                  </button>
+                </div>
+                <div className="flex mt-[8px]">
+                  <p className="font-medium text-[16px]">
+                    Accolite Software India Pvt Ltd
+                  </p>
+                  <BiSolidStar
+                    style={{ color: "#EDBD57" }}
+                    className="mx-[8px] h-[16px] w-[16px] mt-1"
+                  />
+                  <p className="font-medium text-[16px]">3.5</p>
+                  <div className="border-r-2 mx-[8px]"></div>
+                  <p className="font-medium text-[16px]">(678 Reviews)</p>
+                </div>
+                <div className="flex mt-[25px] items-center">
+                  <div className="flex items-center mr-[30px] ">
+                    <Image
+                      src={Bag}
+                      alt="Save"
+                      className="h-[24px] w-[24px] mr-[5px]"
+                    />
+                    <p className="text-[16px]">5-9 yrs</p>
+                  </div>
+                  <div className="flex items-center mr-[30px] ">
+                    <p className="text-[16px]"> {item.shift} Shift</p>
+                  </div>
+                  <div className="flex items-center mr-[30px] ">
+                    <Image
+                      src={Location}
+                      alt="Location"
+                      className="h-[24px] w-[24px] mr-[5px]"
+                    />
+                    <p className="text-[16px]">{item.jobArea}</p>
+                  </div>
+                </div>
+                <div className="flex items-center mt-[19px] ">
                   <Image
-                    src={Bag}
-                    alt="Save"
+                    src={Address}
+                    alt="Address"
                     className="h-[24px] w-[24px] mr-[5px]"
                   />
-                  <p className="text-[16px]">5-9 yrs</p>
+                  <p className="text-[14px]">{item.description}</p>
                 </div>
-                <div className="flex items-center mr-[30px] ">
-                  <p className="text-[16px]">$ Not disclosed</p>
-                </div>
-                <div className="flex items-center mr-[30px] ">
-                  <Image
-                    src={Location}
-                    alt="Location"
-                    className="h-[24px] w-[24px] mr-[5px]"
-                  />
-                  <p className="text-[16px]">5-9 yrs</p>
-                </div>
-              </div>
-              <div className="flex items-center mt-[19px] ">
-                <Image
-                  src={Address}
-                  alt="Address"
-                  className="h-[24px] w-[24px] mr-[5px]"
-                />
-                <p className="text-[14px]">
-                  Experiance with C#/.NET (WPF) 3-tiers application development
-                  (client / server/db) Bachelor/-
-                </p>
-              </div>
-              <div className="flex items-center mt-[25px] justify-between">
-                <p
-                  className="text-[16px]"
-                  style={{ color: "rgba(0, 0, 0, 0.5)" }}
-                >
-                  30+ Days ago
-                </p>
-                <div className="flex items-center  ">
-                  <Image
-                    src={Save}
-                    alt="Save"
-                    className=" w-[16px] h-[20px] mr-[8px]"
-                  />
-                  <p className="text-[16px]">Save</p>
+                <div className="flex items-center mt-[25px] justify-between">
+                  <p className="text-[16px] font-regular text-gray-400">
+                    30+ Days ago
+                  </p>
+                  <div className="flex items-center  ">
+                    <Image
+                      src={Save}
+                      alt="Save"
+                      className=" w-[16px] h-[20px] mr-[8px]"
+                    />
+                    <p className="text-[16px]">Save</p>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="bg-D9D9D9   rounded-[16px] p-[30px] mt-[28px] shadow h-[246px] w-[715px]">
-              <p className="font-semibold text-[18px]">Dot Net</p>
-              <div className="flex mt-[8px]">
-                <p className="font-medium text-[16px]">
-                  Accolite Software India Pvt Ltd
-                </p>
-                <BiSolidStar
-                  style={{ color: "#EDBD57" }}
-                  className="mx-[8px] h-[16px] w-[16px] mt-1"
-                />
-                <p className="font-medium text-[16px]">3.5</p>
-                <div className="border-r-2 mx-[8px]"></div>
-                <p className="font-medium text-[16px]">(678 Reviews)</p>
-              </div>
-              <div className="flex mt-[25px] items-center">
-                <div className="flex items-center mr-[30px] ">
-                  <Image
-                    src={Bag}
-                    alt="Save"
-                    className="h-[24px] w-[24px] mr-[5px]"
-                  />
-                  <p className="text-[16px]">5-9 yrs</p>
-                </div>
-                <div className="flex items-center mr-[30px] ">
-                  <p className="text-[16px]">$ Not disclosed</p>
-                </div>
-                <div className="flex items-center mr-[30px] ">
-                  <Image
-                    src={Location}
-                    alt="Location"
-                    className="h-[24px] w-[24px] mr-[5px]"
-                  />
-                  <p className="text-[16px]">Mumbai</p>
-                </div>
-              </div>
-              <div className="flex items-center mt-[19px] ">
-                <Image
-                  src={Address}
-                  alt="Address"
-                  className="h-[24px] w-[24px] mr-[5px]"
-                />
-                <p className="text-[14px]">
-                  Experiance with C#/.NET (WPF) 3-tiers application development
-                  (client / server/db) Bachelor/-
-                </p>
-              </div>
-              <div className="flex items-center mt-[25px] justify-between">
-                <p className="text-[16px] font-regular text-gray-400">
-                  30+ Days ago
-                </p>
-                <div className="flex items-center  ">
-                  <Image
-                    src={Save}
-                    alt="Save"
-                    className=" w-[16px] h-[20px] mr-[8px]"
-                  />
-                  <p className="text-[16px]">Save</p>
-                </div>
-              </div>
-            </div>
-            <div className="bg-D9D9D9   rounded-[16px] p-[30px] mt-[28px] shadow h-[246px] w-[715px]">
-              <p className="font-semibold text-[18px]">Dot Net</p>
-              <div className="flex mt-[8px]">
-                <p className="font-medium text-[16px]">
-                  Accolite Software India Pvt Ltd
-                </p>
-                <BiSolidStar
-                  style={{ color: "#EDBD57" }}
-                  className="mx-[8px] h-[16px] w-[16px] mt-1"
-                />
-                <p className="font-medium text-[16px]">3.5</p>
-                <div className="border-r-2 mx-[8px]"></div>
-                <p className="font-medium text-[16px]">(678 Reviews)</p>
-              </div>
-              <div className="flex mt-[25px] items-center">
-                <div className="flex items-center mr-[30px] ">
-                  <Image
-                    src={Bag}
-                    alt="Save"
-                    className="h-[24px] w-[24px] mr-[5px]"
-                  />
-                  <p className="text-[16px]">5-9 yrs</p>
-                </div>
-                <div className="flex items-center mr-[30px] ">
-                  <p className="text-[16px]">$ Not disclosed</p>
-                </div>
-                <div className="flex items-center mr-[30px] ">
-                  <Image
-                    src={Location}
-                    alt="Location"
-                    className="h-[24px] w-[24px] mr-[5px]"
-                  />
-                  <p className="text-[16px]">Mumbai</p>
-                </div>
-              </div>
-              <div className="flex items-center mt-[19px] ">
-                <Image
-                  src={Address}
-                  alt="Address"
-                  className="h-[24px] w-[24px] mr-[5px]"
-                />
-                <p className="text-[14px]">
-                  Experiance with C#/.NET (WPF) 3-tiers application development
-                  (client / server/db) Bachelor/-
-                </p>
-              </div>
-              <div className="flex items-center mt-[25px] justify-between">
-                <p className="text-[16px] font-regular text-gray-400">
-                  30+ Days ago
-                </p>
-                <div className="flex items-center  ">
-                  <Image
-                    src={Save}
-                    alt="Save"
-                    className=" w-[16px] h-[20px] mr-[8px]"
-                  />
-                  <p className="text-[16px]">Save</p>
-                </div>
-              </div>
-            </div>
-            <div className="bg-D9D9D9   rounded-[16px] p-[30px] mt-[28px] shadow h-[246px] w-[715px]">
-              <p className="font-semibold text-[18px]">Dot Net</p>
-              <div className="flex mt-[8px]">
-                <p className="font-medium text-[16px]">
-                  Accolite Software India Pvt Ltd
-                </p>
-                <BiSolidStar
-                  style={{ color: "#EDBD57" }}
-                  className="mx-[8px] h-[16px] w-[16px] mt-1"
-                />
-                <p className="font-medium text-[16px]">3.5</p>
-                <div className="border-r-2 mx-[8px]"></div>
-                <p className="font-medium text-[16px]">(678 Reviews)</p>
-              </div>
-              <div className="flex mt-[25px] items-center">
-                <div className="flex items-center mr-[30px] ">
-                  <Image
-                    src={Bag}
-                    alt="Save"
-                    className="h-[24px] w-[24px] mr-[5px]"
-                  />
-                  <p className="text-[16px]">5-9 yrs</p>
-                </div>
-                <div className="flex items-center mr-[30px] ">
-                  <p className="text-[16px]">$ Not disclosed</p>
-                </div>
-                <div className="flex items-center mr-[30px] ">
-                  <Image
-                    src={Location}
-                    alt="Location"
-                    className="h-[24px] w-[24px] mr-[5px]"
-                  />
-                  <p className="text-[16px]">Mumbai</p>
-                </div>
-              </div>
-              <div className="flex items-center mt-[19px] ">
-                <Image
-                  src={Address}
-                  alt="Address"
-                  className="h-[24px] w-[24px] mr-[5px]"
-                />
-                <p className="text-[14px]">
-                  Experiance with C#/.NET (WPF) 3-tiers application development
-                  (client / server/db) Bachelor/-
-                </p>
-              </div>
-              <div className="flex items-center mt-[25px] justify-between">
-                <p className="text-[16px] font-regular text-gray-400">
-                  30+ Days ago
-                </p>
-                <div className="flex items-center  ">
-                  <Image
-                    src={Save}
-                    alt="Save"
-                    className=" w-[16px] h-[20px] mr-[8px]"
-                  />
-                  <p className="text-[16px]">Save</p>
-                </div>
-              </div>
-            </div>
-            <div className="bg-D9D9D9   rounded-[16px] p-[30px] mt-[28px] shadow h-[246px] w-[715px]">
-              <p className="font-semibold text-[18px]">Dot Net</p>
-              <div className="flex mt-[8px]">
-                <p className="font-medium text-[16px]">
-                  Accolite Software India Pvt Ltd
-                </p>
-                <BiSolidStar
-                  style={{ color: "#EDBD57" }}
-                  className="mx-[8px] h-[16px] w-[16px] mt-1"
-                />
-                <p className="font-medium text-[16px]">3.5</p>
-                <div className="border-r-2 mx-[8px]"></div>
-                <p className="font-medium text-[16px]">(678 Reviews)</p>
-              </div>
-              <div className="flex mt-[25px] items-center">
-                <div className="flex items-center mr-[30px] ">
-                  <Image
-                    src={Bag}
-                    alt="Save"
-                    className="h-[24px] w-[24px] mr-[5px]"
-                  />
-                  <p className="text-[16px]">5-9 yrs</p>
-                </div>
-                <div className="flex items-center mr-[30px] ">
-                  <p className="text-[16px]">$ Not disclosed</p>
-                </div>
-                <div className="flex items-center mr-[30px] ">
-                  <Image
-                    src={Location}
-                    alt="Location"
-                    className="h-[24px] w-[24px] mr-[5px]"
-                  />
-                  <p className="text-[16px]">Mumbai</p>
-                </div>
-              </div>
-              <div className="flex items-center mt-[19px] ">
-                <Image
-                  src={Address}
-                  alt="Address"
-                  className="h-[24px] w-[24px] mr-[5px]"
-                />
-                <p className="text-[14px]">
-                  Experiance with C#/.NET (WPF) 3-tiers application development
-                  (client / server/db) Bachelor/-
-                </p>
-              </div>
-              <div className="flex items-center mt-[25px] justify-between">
-                <p className="text-[16px] font-regular text-gray-400">
-                  30+ Days ago
-                </p>
-                <div className="flex items-center  ">
-                  <Image
-                    src={Save}
-                    alt="Save"
-                    className=" w-[16px] h-[20px] mr-[8px]"
-                  />
-                  <p className="text-[16px]">Save</p>
-                </div>
-              </div>
-            </div>
-            <div className="bg-D9D9D9   rounded-[16px] p-[30px] mt-[28px] shadow h-[246px] w-[715px]">
-              <p className="font-semibold text-[18px]">Dot Net</p>
-              <div className="flex mt-[8px]">
-                <p className="font-medium text-[16px]">
-                  Accolite Software India Pvt Ltd
-                </p>
-                <BiSolidStar
-                  style={{ color: "#EDBD57" }}
-                  className="mx-[8px] h-[16px] w-[16px] mt-1"
-                />
-                <p className="font-medium text-[16px]">3.5</p>
-                <div className="border-r-2 mx-[8px]"></div>
-                <p className="font-medium text-[16px]">(678 Reviews)</p>
-              </div>
-              <div className="flex mt-[25px] items-center">
-                <div className="flex items-center mr-[30px] ">
-                  <Image
-                    src={Bag}
-                    alt="Save"
-                    className="h-[24px] w-[24px] mr-[5px]"
-                  />
-                  <p className="text-[16px]">5-9 yrs</p>
-                </div>
-                <div className="flex items-center mr-[30px] ">
-                  <p className="text-[16px]">$ Not disclosed</p>
-                </div>
-                <div className="flex items-center mr-[30px] ">
-                  <Image
-                    src={Location}
-                    alt="Location"
-                    className="h-[24px] w-[24px] mr-[5px]"
-                  />
-                  <p className="text-[16px]">Mumbai</p>
-                </div>
-              </div>
-              <div className="flex items-center mt-[19px] ">
-                <Image
-                  src={Address}
-                  alt="Address"
-                  className="h-[24px] w-[24px] mr-[5px]"
-                />
-                <p className="text-[14px]">
-                  Experiance with C#/.NET (WPF) 3-tiers application development
-                  (client / server/db) Bachelor/-
-                </p>
-              </div>
-              <div className="flex items-center mt-[25px] justify-between">
-                <p className="text-[16px] font-regular text-gray-400">
-                  30+ Days ago
-                </p>
-                <div className="flex items-center  ">
-                  <Image
-                    src={Save}
-                    alt="Save"
-                    className=" w-[16px] h-[20px] mr-[8px]"
-                  />
-                  <p className="text-[16px]">Save</p>
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
         )}
         {selectedTab == "Overview" && <p>Overview</p>}
