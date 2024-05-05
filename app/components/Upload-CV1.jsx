@@ -5,15 +5,21 @@ import Image from "next/image";
 import upload from "@/public/assets/upload.svg";
 import { GetUserCV } from "@/app/actions";
 import { uploadFile } from "../services";
+import check from "@/public/list.png";
 
-const UploadCVComp = () => {
+const UploadCVComp = (props) => {
+  const { formData, setFormData } = props;
   const [image, setImage] = useState([]);
   console.log("image :::", image);
 
-  const fileUpload = () => {
-    uploadFile(image)
+  const fileUpload = async () => {
+    const data = new FormData();
+
+    await data.append("file", image);
+
+    uploadFile(data)
       .then((res) => {
-        console.log("Upload File API...............", res);
+        setFormData({ ...formData, cv: res?.data?.fileUrl });
       })
       .catch((err) => {
         console.log("err.....", err?.message);
@@ -21,17 +27,23 @@ const UploadCVComp = () => {
   };
 
   useEffect(() => {
-    GetUserCV(image);
+    // GetUserCV(image);
+    if (image) {
+      fileUpload();
+    }
   }, [image]);
 
-  console.log(".....He", image);
   return (
     <>
       <div className="w-full min-h-[70vh] h-auto flex flex-col justify-start items-center text-[#434343] gap-6 lg:py-8 py-4 lg:px-14 px-4 duration-300">
         {/* upload resume input */}
+        {formData?.cv && (
+          <Image src={check} alt="check Icon" className="w-5 h-5 " />
+        )}
+
         <div className="flex flex-col items-start justify-center w-full h-auto space-y-6 flex-nowrap">
           <label
-            onClick={fileUpload}
+            // onClick={fileUpload}
             htmlFor="Employee Type"
             className="block py-1 text-xl font-bold"
           >

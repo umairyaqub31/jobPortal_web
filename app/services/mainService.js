@@ -39,5 +39,6 @@ export const getjobDetails = (jobId) => {
 };
 
 export const uploadFile = (params) => {
+  console.log("main service..........", params);
   return HTTP_CLIENT.post(ENDPOINTS.UPLOAD_FILE, params);
 };

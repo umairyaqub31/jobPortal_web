@@ -63,6 +63,7 @@ const ActiveBar = ({ activePage, setActivePage, children }) => {
     jobDetails: [],
     jobTitle: "",
     jobPreferences: "",
+    cv: "",
   });
   const dispatch = useDispatch();
 
@@ -202,7 +203,7 @@ const ActiveBar = ({ activePage, setActivePage, children }) => {
           </>
         ) : activePage === 5 ? (
           <>
-            <UploadCVComp />
+            <UploadCVComp formData={formData} setFormData={setFormData} />
           </>
         ) : null
         // (
