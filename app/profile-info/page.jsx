@@ -12,8 +12,11 @@ import Share from "@/public/Share.png";
 import ArrowCard from "@/public/ArrowCard.png";
 import ProfileCardComp from "@/app/components/Profile-Card";
 import HeadBarComp from "@/app/components/Headbar";
+import { useSelector } from "react-redux";
 
 const ProfileInfoPage = () => {
+  const { isLoggedIn, user } = useSelector((state) => state.root.user);
+  console.log("USER INFO", user);
   const [homeTown, setHomeTown] = useState("Add Hometown");
   return (
     <>
@@ -33,7 +36,7 @@ const ProfileInfoPage = () => {
             />
 
             <div className="flex flex-col items-start justify-start w-auto gap-2">
-              <h1 className="text-base font-semibold">Ali Hindus</h1>
+              <h1 className="text-base font-semibold">{user?.fullName}</h1>
               <div className="w-auto flex justify-start items-center text-[#909198] font-normal gap-1 text-xs">
                 <Image
                   src={Bag}
@@ -75,26 +78,26 @@ const ProfileInfoPage = () => {
             <div className="flex flex-col items-start justify-start w-1/2 h-full gap-4">
               <span>{`Email ID`}</span>
 
-              <span className="text-black">{`Rental Round Rebdus`}</span>
+              <span className="text-black">{user?.email}</span>
 
               <span>{`Date Of Birth`}</span>
 
-              <span className="text-black">{`Rental Round Rebdus`}</span>
+              <span className="text-black">{user?.DOB}</span>
 
               <span>{`Current Location`}</span>
 
-              <span className="text-black">{`Rental Round Rebdus`}</span>
+              <span className="text-black">{user?.locality}</span>
             </div>
 
             {/* right div */}
             <div className="flex flex-col items-start justify-start w-1/2 h-full gap-4">
               <span>{`Mobile Number`}</span>
 
-              <span className="text-black">{`+91-8920612455`}</span>
+              <span className="text-black">{user?.phone}</span>
 
               <span>{`Gender`}</span>
 
-              <span className="text-black">{`Rental Round Rebdus`}</span>
+              <span className="text-black">{user?.gender}</span>
 
               <span>{`Hometown`}</span>
 
@@ -120,7 +123,7 @@ const ProfileInfoPage = () => {
             <span>{`Total Experience`}</span>
             <div className="flex items-center justify-center w-auto h-auto gap-2 ">
               <span className="text-[#393A44] font-semibold text-sm">
-                {"10 years"}
+                {user?.experience}
               </span>
               <Image
                 src={ArrowCard}

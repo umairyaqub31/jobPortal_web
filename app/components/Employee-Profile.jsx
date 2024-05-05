@@ -7,7 +7,10 @@ import Image from "next/image";
 // * local imports
 import pen from "@/public/pen.png";
 import pen2 from "@/public/pen2.png";
+import { useSelector } from "react-redux";
 const EmployeeProfileComp = () => {
+  const { user } = useSelector((state) => state.root.user);
+  console.log("USER INFO", user);
   const [image, setImage] = useState(null);
 
   const [formData, setFormData] = useState({
@@ -88,6 +91,7 @@ const EmployeeProfileComp = () => {
                 />
               </div>
               <input
+                value={user?.fullName}
                 onChange={(e) =>
                   setFormData({ ...formData, fullName: e.target.value })
                 }
@@ -115,6 +119,7 @@ const EmployeeProfileComp = () => {
                 />
               </div>
               <input
+                value={user?.email}
                 onChange={(e) =>
                   setFormData({ ...formData, email: e.target.value })
                 }
@@ -206,6 +211,7 @@ const EmployeeProfileComp = () => {
                 />
               </div>
               <input
+                value={user?.company?.workingAs}
                 onChange={(e) =>
                   setFormData({ ...formData, workingAs: e.target.value })
                 }

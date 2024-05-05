@@ -17,7 +17,13 @@ import {
   signInWithPhoneNumber,
 } from "firebase/auth";
 import { app } from "../firebaseConfig";
-import { setAuthToken, setIsLoggedIn, setPhoneNumber, setUser } from "../redux";
+import {
+  setAuthToken,
+  setIsLoggedIn,
+  setloginusername,
+  setPhoneNumber,
+  setUser,
+} from "../redux";
 
 const RegisterPage = () => {
   const [error, setError] = useState(false);
@@ -91,6 +97,7 @@ const RegisterPage = () => {
         candidateLogin(params)
           .then((res) => {
             console.log("cand res........", res?.data);
+            dispatch(setloginusername("candidate"));
             dispatch(setUser(res?.data?.user));
             dispatch(setIsLoggedIn(true));
             dispatch(setAuthToken(res?.data?.token));

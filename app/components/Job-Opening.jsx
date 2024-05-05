@@ -13,10 +13,10 @@ const JobOpeningComp = () => {
   const [topCompany, setTopCompany] = useState([]);
   const [pageno, setpageno] = useState(1);
   const fetchTopCompany = (pageno) => {
-    console.log("Page no is ", pageno);
+    // console.log("Page no is ", pageno);
     topCompanies(pageno)
       .then((res) => {
-        console.log("ress....", res);
+        // console.log("ress....", res);
         setTopCompany(res?.data?.companies);
       })
       .catch((err) => {
@@ -27,7 +27,6 @@ const JobOpeningComp = () => {
     fetchTopCompany(pageno);
   }, [pageno]);
 
-  console.log("Jobs are .............", topCompany);
   return (
     <>
       {/* main component  */}

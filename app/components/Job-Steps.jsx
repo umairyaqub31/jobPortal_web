@@ -27,7 +27,7 @@ const stepsData = [
 const JobStepsComp = () => {
   const [current, setCurrent] = useState(1);
   const onChange = (value) => {
-    console.log("onChange:", value);
+    // console.log("onChange:", value);
     setCurrent(value);
   };
   const description = `Lorem ipsum dolor sit amet consectetur. Pretium consectetur mi lectus eget mi`;

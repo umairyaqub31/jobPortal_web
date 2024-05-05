@@ -20,6 +20,7 @@ const ENDPOINTS = {
   CAND_GETCOMPANYJOB: "candidate/getCompanyJobs",
   CAND_GETJOBDETAILS: "candidate/getJob",
   UPLOAD_FILE: "candidate/uploadFile",
+  CAND_APPLYJOB: "candidate/applyJob",
 };
 
 export { BASE_URL, ENDPOINTS };

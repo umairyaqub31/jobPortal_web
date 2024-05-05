@@ -16,7 +16,13 @@ import Loader from "@/app/components/loader";
 import { useRouter } from "next/navigation";
 import { login } from "../services";
 import { useDispatch } from "react-redux";
-import { setAuthToken, setIsLoggedIn, setPhoneNumber, setUser } from "../redux";
+import {
+  setAuthToken,
+  setIsLoggedIn,
+  setPhoneNumber,
+  setUser,
+  setloginusername,
+} from "../redux";
 
 const EmployeeLoginPage = () => {
   const [error, setError] = useState(false);
@@ -92,6 +98,7 @@ const EmployeeLoginPage = () => {
           .then((res) => {
             console.log("res........", res?.data);
             dispatch(setUser(res?.data?.user));
+            dispatch(setloginusername("employee"));
             dispatch(setIsLoggedIn(true));
             dispatch(setAuthToken(res?.data?.token));
             router.push("/employee-login/employee-jobs");

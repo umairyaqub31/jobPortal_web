@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
+  loginusername: "",
   user: null,
   authToken: null,
   fcmToken: null,
@@ -15,6 +16,9 @@ export const userReducer = createSlice({
   name: "user",
   initialState,
   reducers: {
+    setloginusername: (state, action) => {
+      state.loginusername = action.payload;
+    },
     setAuthToken: (state, action) => {
       state.authToken = action.payload;
     },
@@ -49,6 +53,7 @@ export const userReducer = createSlice({
 });
 
 export const {
+  setloginusername,
   setUser,
   signOut,
   setPhoneNumber,

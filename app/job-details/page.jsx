@@ -19,7 +19,7 @@ import Magnifer from "@/public/Magnifer.png";
 import MapPoint from "@/public/Map Point.png";
 import servion from "@/public/servion.png";
 import HeadBarComp from "@/app/components/Headbar";
-import { getjobDetails } from "../services";
+import { applyJob, getjobDetails } from "../services";
 import { useSelector } from "react-redux";
 
 const JobDetailsPage = () => {
@@ -32,6 +32,21 @@ const JobDetailsPage = () => {
     getjobDetails(jobId)
       .then((res) => {
         console.log("Company Job API...............", res);
+        setJobDetails(res.data.job);
+      })
+      .catch((err) => {
+        console.log("err.....", err?.message);
+      });
+  };
+
+  const jobApply = () => {
+    let params = {
+      jobId: jobId,
+    };
+    console.log("jobApply Id", params);
+    applyJob(params)
+      .then((res) => {
+        console.log("Apply Job API...............", res);
         setJobDetails(res.data.job);
       })
       .catch((err) => {
@@ -179,7 +194,10 @@ const JobDetailsPage = () => {
                 </span>
               </div>
 
-              <button className="bg-[#3F6EEC] py-2 px-4 rounded-full min-w-[132px] md:w-auto w-full h-[37px] flex flex-nowrap justify-center items-center text-center gap-1 text-white text-sm font-normal">
+              <button
+                onClick={jobApply}
+                className="bg-[#3F6EEC] py-2 px-4 rounded-full min-w-[132px] md:w-auto w-full h-[37px] flex flex-nowrap justify-center items-center text-center gap-1 text-white text-sm font-normal"
+              >
                 {`Apply Now`}
 
                 <Image

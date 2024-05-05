@@ -62,7 +62,7 @@ const TradingJobsComp = () => {
   const fetchTrendingRoles = () => {
     getJobRoles()
       .then((res) => {
-        console.log("Trending Job API...............", res);
+        // console.log("Trending Job API...............", res);
         setTrendingRole(res.data);
       })
       .catch((err) => {
@@ -72,8 +72,6 @@ const TradingJobsComp = () => {
   useEffect(() => {
     fetchTrendingRoles();
   }, []);
-
-  console.log("DONE..............", trendingrole);
 
   const CustomPagination = ({ current, total, swiper }) => {
     return (

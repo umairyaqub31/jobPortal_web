@@ -30,10 +30,8 @@ const SliderCardComp = ({ data }) => {
     }
   };
 
-  console.log(start);
-
   const passCompanyName = (name, id) => {
-    console.log("name is.......................", id);
+    // console.log("name is.......................", id);
     dispatch(setCompanyName(name));
     dispatch(setCompanyId(id));
   };

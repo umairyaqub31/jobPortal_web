@@ -8,6 +8,7 @@ import ReferralComp from "@/app/components/ReferralComp";
 import { EmployeeNavData } from "@/lib/data";
 import Image from "next/image";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 const EMployeeProfilePage = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
 

@@ -35,10 +35,11 @@ const HeadBarComp = ({
   // const [user, setUser] = useState(false);
   const [mobileMenu, setMobileMenu] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
-  const { isLoggedIn } = useSelector((state) => state.root.user);
+  const { isLoggedIn, user, loginusername } = useSelector(
+    (state) => state.root.user
+  );
   const dispatch = useDispatch();
   const handleLogout = () => {
-    console.log("logout chala");
     dispatch(signOut());
   };
   const router = useRouter();
@@ -46,9 +47,10 @@ const HeadBarComp = ({
   const [jobtitle, setJobtitle] = useState("IT"); // State to store job title
   const [companyname, setCompanyname] = useState("");
   const [data, setData] = useState([]);
+  console.log("loginusername", loginusername);
 
-  console.log("COMpane name", companyname);
-  console.log("jobtitle name", jobtitle);
+  // console.log("COMpane name", companyname);
+  // console.log("jobtitle name", jobtitle);
 
   const jobSearching = () => {
     console.log("Before Api hit ", jobtitle, companyname);
@@ -62,6 +64,13 @@ const HeadBarComp = ({
       });
   };
 
+  const ViewProfile = () => {
+    if (loginusername === "employee") {
+      router.push("/employee-profile");
+    } else {
+      router.push("/profile-info");
+    }
+  };
   return (
     <>
       {visible && (
@@ -209,8 +218,8 @@ const HeadBarComp = ({
                         <div className="w-full h-[1px] bg-[#0000000D]"></div>
 
                         {/* buttons */}
-                        <Link
-                          href="/employee-profile"
+                        <div
+                          onClick={ViewProfile}
                           className="flex items-center justify-start w-full h-auto gap-2"
                         >
                           <Image
@@ -220,10 +229,13 @@ const HeadBarComp = ({
                             height={500}
                             className="object-contain w-4 h-4"
                           />
-                          <span className="text-[#393A44] text-xs font-normal">
+                          <span
+                            // onClick={ViewProfile}
+                            className="text-[#393A44] text-xs font-normal"
+                          >
                             View Profile
                           </span>
-                        </Link>
+                        </div>
 
                         <Link
                           href="/company-profile"
