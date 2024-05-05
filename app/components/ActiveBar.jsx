@@ -93,7 +93,7 @@ const ActiveBar = ({ activePage, setActivePage, children }) => {
       jobDetails: formData.jobDetails,
       prefferedRole: formData.jobTitle,
       jobPreferences: formData.jobPreferences,
-      CV: "https://example.com/john_doe_cv.pdf",
+      CV: formData.cv,
       // profilePicture: "https://example.com/john_doe_profile.jpg",
       // about:
       //   "Experienced software engineer passionate about creating scalable web applications.",
