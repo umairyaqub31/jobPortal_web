@@ -100,6 +100,12 @@ const EmployeeActiveBar = ({ activePage, setActivePage, children }) => {
   const handleCloseOTPModal = () => {
     setShowOTPModal(false);
   };
+
+  // const handleClickNext = () => {
+  //   if (screenName == "Recruiter Profile") {
+  //     setScreenName("Company Details");
+  //   }
+  // };
   return (
     <div className="flex flex-col items-center justify-start max-w-[841px] w-auto min-h-[80vh] h-auto gap-6">
       <div className="flex items-center justify-start w-full gap-4 flex-nowrap lg:gap-8">
@@ -161,6 +167,7 @@ const EmployeeActiveBar = ({ activePage, setActivePage, children }) => {
       {activePage === 1 ? (
         <>
           <ProvideDataComp
+            handleClickNext={handlePageNext}
             formData={personalInfo}
             setFormData={setPersonalInfo}
           />

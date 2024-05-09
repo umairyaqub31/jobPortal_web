@@ -3,6 +3,8 @@
 import { GetAllValues, GetJobExperienceData } from "@/app/actions";
 // !imports
 import { useState, useEffect } from "react";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
 
 // ! icons imports
 
@@ -43,45 +45,90 @@ const JobTitileComp = (props) => {
   return (
     <>
       <div className="w-full min-h-[70vh] h-auto flex flex-col justify-start items-center text-[#434343] gap-6 lg:py-8 py-4 lg:px-14 px-4 duration-300">
-        {/* Preferred job title/role input */}
-        <div className="flex flex-col items-start justify-center w-full h-auto space-y-2 lg:lg:space-y-4">
-          <label htmlFor="Role" className="block py-1 text-sm font-semibold">
-            Preferred Job Title/Role
-          </label>
-          <select
-            onChange={(e) =>
-              setFormData({ ...formData, jobTitle: e.target.value })
-            }
-            id="gender"
-            className="h-14 w-full rounded-lg border outline-none px-4 bg-white text-sm text-[#949494] shadow-sm"
-          >
-            <option value="male">
-              write how many year of experience you have
-            </option>
-            <option value="female">Female</option>
-            <option value="other">Other</option>
-          </select>
-        </div>
+        <Formik
+          initialValues={{
+            yearsofExperience: "",
+            jobPreferences: "",
+          }}
+          validationSchema={Yup.object({
+            yearsofExperience: Yup.string().required("Required"),
 
-        {/* job preferences input */}
-        <div className="flex flex-col items-start justify-center w-full h-auto space-y-2 lg:lg:space-y-4">
-          <label htmlFor="Role" className="block py-1 text-sm font-semibold">
-            Job Preferences
-          </label>
-          <select
-            onChange={(e) =>
-              setFormData({ ...formData, jobPreferences: e.target.value })
-            }
-            id="gender"
-            className="h-14 w-full rounded-lg border outline-none px-4 bg-white text-sm text-[#949494] shadow-sm"
-          >
-            <option value="male">
-              write how many year of experience you have
-            </option>
-            <option value="female">Female</option>
-            <option value="other">Other</option>
-          </select>
-        </div>
+            jobPreferences: Yup.string().required("Required"),
+          })}
+          onSubmit={(values, { setSubmitting }) => {
+            // Your form submission logic here
+            console.log("Form Submitted");
+            console.log(values);
+            setSubmitting(false);
+            setFormSubmitted(true);
+          }}
+        >
+          <Form>
+            <div className="flex flex-col items-start justify-center w-full h-auto space-y-2 lg:lg:space-y-4">
+              <label
+                htmlFor="Role"
+                className="block py-1 text-sm font-semibold"
+              >
+                Preferred Job Title/Role
+              </label>
+              <Field
+                name="yearsofExperience"
+                as="select"
+                className="h-14 w-full rounded-lg border outline-none px-4 bg-white text-sm text-[#949494] shadow-sm"
+              >
+                <ErrorMessage
+                  name="yearsofExperience"
+                  component="div"
+                  className="text-red-500 text-xs mt-1"
+                />
+                <option value="">Select</option>
+                <option value="1">1 year</option>
+                <option value="2">2 year</option>
+                <option value="3">3 year</option>
+                <option value="4">4 year</option>
+                <option value="5">5 year</option>
+                <option value="6">6 year</option>
+              </Field>
+              <ErrorMessage
+                name="yearsofExperience"
+                component="div"
+                className="text-red-500 text-xs mt-1"
+              />
+            </div>
+
+            <div className="flex flex-col items-start justify-center w-full h-auto space-y-2 lg:lg:space-y-4">
+              <label
+                htmlFor="Role"
+                className="block py-1 text-sm font-semibold"
+              >
+                Job Preferences
+              </label>
+              <Field
+                name="jobPreferences"
+                as="select"
+                className="h-14 w-full rounded-lg border outline-none px-4 bg-white text-sm text-[#949494] shadow-sm"
+              >
+                <ErrorMessage
+                  name="jobPreferences"
+                  component="div"
+                  className="text-red-500 text-xs mt-1"
+                />
+                <option value="">Select</option>
+                <option value="1">1 year</option>
+                <option value="2">2 year</option>
+                <option value="3">3 year</option>
+                <option value="4">4 year</option>
+                <option value="5">5 year</option>
+                <option value="6">6 year</option>
+              </Field>
+              <ErrorMessage
+                name="jobPreferences"
+                component="div"
+                className="text-red-500 text-xs mt-1"
+              />
+            </div>
+          </Form>
+        </Formik>
       </div>
     </>
   );

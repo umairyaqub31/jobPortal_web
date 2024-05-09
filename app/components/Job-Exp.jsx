@@ -6,6 +6,8 @@ import add from "@/public/assets/add.svg";
 import { GetExperienceData } from "@/app/actions";
 import { IoMdClose } from "react-icons/io";
 import { generateYearsData } from "../services/constants";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
 import { TemplateContext } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
 const expLevelData = [
@@ -356,31 +358,57 @@ const JobExpComp = (props) => {
           </div>
         </>
       )}
-      {/* main container */}
-      <div className="flex flex-col items-center justify-start w-full h-auto gap-8 text-[#434343] pb-[10vh]">
-        {/* experience input */}
-        <div className="w-full h-auto space-y-2">
-          <label
-            htmlFor="experiencelevel"
-            className="block py-1 text-sm font-semibold "
-          >
-            Experience Level
-          </label>
-          <select
-            id="experiencelevel"
-            onChange={(e) =>
-              setFormData({ ...formData, experienceLevel: e.target.value })
-            }
-            className=" w-full rounded-lg border outline-none px-4 h-14 bg-white text-sm text-[#949494] shadow-sm"
-          >
-            {expLevelData.map((d) => (
-              <option value={d.value}>{d.title}</option>
-            ))}
-          </select>
-        </div>
+      <Formik
+        initialValues={{
+          ExperienceLevel: "",
+        }}
+        validationSchema={Yup.object({
+          ExperienceLevel: Yup.string().required("Required"),
+        })}
+        onSubmit={(values, { setSubmitting }) => {
+          // Your form submission logic here
+          console.log("Form Submitted");
+          console.log(values);
+          setSubmitting(false);
+          setFormSubmitted(true);
+        }}
+      >
+        <div className="flex flex-col items-center justify-start w-full h-auto gap-8 text-[#434343] pb-[10vh]">
+          {/* experience input */}
+          <div className="w-full h-auto space-y-2">
+            <label
+              htmlFor="experiencelevel"
+              className="block py-1 text-sm font-semibold "
+            >
+              Experience Level
+            </label>
+            <Field
+              as="select"
+              name="ExperienceLevel"
+              className=" w-full rounded-lg border outline-none px-4 h-14 bg-white text-sm text-[#949494] shadow-sm"
+            >
+              <ErrorMessage
+                name="ExperienceLevel"
+                component="div"
+                className="text-red-500 text-xs mt-1"
+              />
+              <option value="">Select</option>
+              <option value="1">1 year</option>
+              <option value="2">2 year</option>
+              <option value="3">3 year</option>
+              <option value="4">4 year</option>
+              <option value="5">5 year</option>
+              <option value="6">6 year</option>
+            </Field>
+            <ErrorMessage
+              name="ExperienceLevel"
+              component="div"
+              className="text-red-500 text-xs mt-1"
+            />
+          </div>
 
-        {/* add skills */}
-        {/* <div
+          {/* add skills */}
+          {/* <div
           className={`w-full h-auto space-y-2 ${
             allowExperience && "cursor-not-allowed"
           }`}
@@ -403,50 +431,51 @@ const JobExpComp = (props) => {
           </button>
         </div> */}
 
-        {!allowExperience && (
-          <>
-            {/*experience input  */}
-            <div className="w-full h-auto space-y-2">
-              <label
-                htmlFor="experience"
-                className="block py-1 text-sm font-semibold "
-              >
-                Experience
-              </label>
-              <input
-                onChange={(e) =>
-                  setFormData({ ...formData, experience: e.target.value })
-                }
-                type="text"
-                placeholder="write how many year of experience you have"
-                id="experience"
-                disabled={allowExperience}
-                className={` w-full h-14 rounded-lg border outline-none px-4 bg-white text-sm text-[#949494] shadow-sm ${
-                  allowExperience && "cursor-not-allowed"
-                }`}
-              />
-            </div>
-            {/* job details */}
-            <div className="w-full h-auto space-y-2">
-              <label
-                htmlFor="jobDetails"
-                className="block py-1 text-sm font-semibold"
-              >
-                Job Details
-              </label>
+          {!allowExperience && (
+            <>
+              {/*experience input  */}
+              <div className="w-full h-auto space-y-2">
+                <label
+                  htmlFor="experience"
+                  className="block py-1 text-sm font-semibold "
+                >
+                  Experience
+                </label>
+                <input
+                  onChange={(e) =>
+                    setFormData({ ...formData, experience: e.target.value })
+                  }
+                  type="text"
+                  placeholder="write how many year of experience you have"
+                  id="experience"
+                  disabled={allowExperience}
+                  className={` w-full h-14 rounded-lg border outline-none px-4 bg-white text-sm text-[#949494] shadow-sm ${
+                    allowExperience && "cursor-not-allowed"
+                  }`}
+                />
+              </div>
+              {/* job details */}
+              <div className="w-full h-auto space-y-2">
+                <label
+                  htmlFor="jobDetails"
+                  className="block py-1 text-sm font-semibold"
+                >
+                  Job Details
+                </label>
 
-              <button
-                className={`text-[#0076FC] text-sm font-medium gap-2 h-11  flex flex-nowrap justify-center items-center w-auto p-4 border-[#0076FC] border-2 rounded-full ${
-                  allowExperience && "cursor-not-allowed"
-                }`}
-                onClick={() => setShowExpDialog(true)}
-              >
-                <Image src={add} alt="" /> Add Job
-              </button>
-            </div>
-          </>
-        )}
-      </div>
+                <button
+                  className={`text-[#0076FC] text-sm font-medium gap-2 h-11  flex flex-nowrap justify-center items-center w-auto p-4 border-[#0076FC] border-2 rounded-full ${
+                    allowExperience && "cursor-not-allowed"
+                  }`}
+                  onClick={() => setShowExpDialog(true)}
+                >
+                  <Image src={add} alt="" /> Add Job
+                </button>
+              </div>
+            </>
+          )}
+        </div>
+      </Formik>
     </>
   );
 };
