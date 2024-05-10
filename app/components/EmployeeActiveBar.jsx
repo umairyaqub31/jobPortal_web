@@ -167,7 +167,7 @@ const EmployeeActiveBar = ({ activePage, setActivePage, children }) => {
       {activePage === 1 ? (
         <>
           <ProvideDataComp
-            handleClickNext={handlePageNext}
+            handlePageNext={handlePageNext}
             formData={personalInfo}
             setFormData={setPersonalInfo}
           />

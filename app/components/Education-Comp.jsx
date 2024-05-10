@@ -5,6 +5,8 @@ import React, { useState, useEffect } from "react";
 import { generateYearsData } from "../services/constants";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { useDispatch, useSelector } from "react-redux";
+import { setCandidateProfile } from "../redux";
 // import add from "@/public/assets/add.svg";
 // import Image from "next/image";
 
@@ -59,7 +61,10 @@ const months = [
   },
 ];
 const EducationComp = (props) => {
-  const { formData, setFormData } = props;
+  const dispatch = useDispatch();
+  const { formData, setFormData, handlePageNext } = props;
+  const { candidateProfile } = useSelector((state) => state.root.user);
+  console.log("..............", candidateProfile);
   const [formSubmitted, setFormSubmitted] = useState(false);
 
   useEffect(() => {
@@ -99,6 +104,9 @@ const EducationComp = (props) => {
           // Your form submission logic here
           console.log("Form Submitted");
           console.log(values);
+          dispatch(setCandidateProfile({ ...candidateProfile, ...values }));
+
+          handlePageNext();
           setSubmitting(false);
           setFormSubmitted(true);
         }}
@@ -351,6 +359,15 @@ const EducationComp = (props) => {
                   </div>
                 </div>
               </div>
+            </div>
+            <div class="col-span-6">
+              {" "}
+              <button
+                // onClick={handlePageClick}
+                className="text-center shadow-md bg-[#0076FC] shadow-blue-200 rounded-full w-full py-2 text-white"
+              >
+                Next
+              </button>
             </div>
           </Form>
         </div>

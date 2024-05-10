@@ -7,12 +7,87 @@ import { useEffect, useState } from "react";
 import upload from "@/public/assets/upload.svg";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { useDispatch, useSelector } from "react-redux";
+import { register } from "../services";
+import {
+  setAuthToken,
+  setEmployeeProfile,
+  setIsLoggedIn,
+  setUser,
+} from "../redux";
+import { useRouter } from "next/navigation";
 
 const EmployeeCompanyDetailsComp = (props) => {
+  const router = useRouter();
   const [image, setImage] = useState(null);
-
+  const { employeeProfile, phoneNumber } = useSelector(
+    (state) => state.root.user
+  );
+  console.log("..............", employeeProfile);
   const { formData, setFormData } = props;
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [logoimage, setLogoImage] = useState();
+  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+
+  const fileUpload = async () => {
+    const data = new FormData();
+
+    await data.append("file", image);
+
+    uploadFile(data)
+      .then((res) => {
+        console.log("...Profile Image", res);
+        setLogoImage(res?.data?.fileUrl);
+      })
+      .catch((err) => {
+        console.log("err.....", err?.message);
+      });
+  };
+
+  useEffect(() => {
+    // GetUserCV(image);
+    if (image) {
+      fileUpload();
+    }
+  }, [image]);
+
+  const ApiHit = (values) => {
+    console.log(">..................", values);
+    let params = {
+      email: employeeProfile.email,
+      phone: phoneNumber,
+      fullName: employeeProfile.fullName,
+      company: {
+        companyRole: employeeProfile.companyRole,
+        consultancyName: employeeProfile.consultancyName,
+        workingAs: employeeProfile.workingAs,
+
+        email: values.consultancyEmailId,
+        webUrl: values.consultancyURL,
+        about: values.aboutConsultancy,
+        size: values.consultancySize,
+        city: values.city,
+        locality: values.locality,
+        // logo: "String",
+      },
+    };
+    register(params)
+      .then((res) => {
+        setLoading(true);
+        console.log("res.....", res);
+        dispatch(setAuthToken(res.data.token));
+        dispatch(setUser(res?.data?.user));
+        dispatch(setIsLoggedIn(true));
+        router.push("/employee-login/employee-jobs");
+        dispatch(setEmployeeProfile({}));
+      })
+      .catch((err) => {
+        console.log("errorr.....", err?.response?.data);
+        alert(err?.message);
+      })
+      .finally(() => setLoading(false));
+  };
   return (
     <Formik
       initialValues={{
@@ -43,6 +118,7 @@ const EmployeeCompanyDetailsComp = (props) => {
         // Your form submission logic here
         console.log("Form Submitted");
         console.log(values);
+        ApiHit(values);
         setSubmitting(false);
         setFormSubmitted(true);
       }}
@@ -206,14 +282,15 @@ const EmployeeCompanyDetailsComp = (props) => {
                       type="file"
                       id="upload"
                       className="hidden"
-                      onChange={(e) => {
-                        const file = e.target.files[0];
-                        const imageUrl = URL.createObjectURL(file);
-                        setImage(imageUrl);
-                      }}
+                      onChange={(e) => setImage(e.target.files[0])}
+                      // onChange={(e) => {
+                      //   const file = e.target.files[0];
+                      //   const imageUrl = URL.createObjectURL(file);
+                      //   setImage(imageUrl);
+                      // }}
                     />
                     <Image
-                      src={upload}
+                      src={image ? image : upload}
                       width={500}
                       height={500}
                       alt="Upload Icon"
@@ -226,6 +303,12 @@ const EmployeeCompanyDetailsComp = (props) => {
                   </label>
                 </div>
               </div>
+              <button
+                type="submit"
+                className="text-center shadow-md bg-[#0076FC] shadow-blue-200 rounded-full w-full py-2 text-white"
+              >
+                Next
+              </button>
             </Form>
           </div>
         </div>

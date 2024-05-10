@@ -14,6 +14,7 @@ import { candidateRegister } from "../services";
 import { useDispatch, useSelector } from "react-redux";
 import { setAuthToken, setIsLoggedIn, setUser } from "../redux";
 import Loader from "./loader";
+import FInalPageComp from "../candidate-login/final/page";
 
 // const totalTabs = [1, 2, 3, 4, 5];
 const totalTabs = [
@@ -36,6 +37,10 @@ const totalTabs = [
   {
     index: 5,
     name: "last Step",
+  },
+  {
+    index: 6,
+    name: "Image Upload",
   },
 ];
 
@@ -117,8 +122,6 @@ const ActiveBar = ({ activePage, setActivePage, children }) => {
   const handlePageNext = () => {
     if (activePage >= 1 && activePage < totalTabs.length) {
       setActivePage(activePage + 1);
-    } else {
-      handleRegister();
     }
   };
   const handlePageBack = () => {
@@ -187,23 +190,47 @@ const ActiveBar = ({ activePage, setActivePage, children }) => {
       {
         activePage === 1 ? (
           <>
-            <Experience formData={formData} setFormData={setFormData} />
+            <Experience
+              formData={formData}
+              setFormData={setFormData}
+              handlePageNext={handlePageNext}
+            />
           </>
         ) : activePage === 2 ? (
           <>
-            <EducationComp formData={formData} setFormData={setFormData} />
+            <EducationComp
+              formData={formData}
+              setFormData={setFormData}
+              handlePageNext={handlePageNext}
+            />
           </>
         ) : activePage === 3 ? (
           <>
-            <JobExpComp formData={formData} setFormData={setFormData} />
+            <JobExpComp
+              formData={formData}
+              setFormData={setFormData}
+              handlePageNext={handlePageNext}
+            />
           </>
         ) : activePage === 4 ? (
           <>
-            <JobTitileComp formData={formData} setFormData={setFormData} />
+            <JobTitileComp
+              formData={formData}
+              setFormData={setFormData}
+              handlePageNext={handlePageNext}
+            />
           </>
         ) : activePage === 5 ? (
           <>
-            <UploadCVComp formData={formData} setFormData={setFormData} />
+            <UploadCVComp
+              formData={formData}
+              setFormData={setFormData}
+              handlePageNext={handlePageNext}
+            />
+          </>
+        ) : activePage === 6 ? (
+          <>
+            <FInalPageComp />
           </>
         ) : null
         // (

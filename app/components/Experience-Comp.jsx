@@ -6,10 +6,13 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import Link from "next/link";
+import { setCandidateProfile } from "../redux";
+import { useDispatch } from "react-redux";
 
 const Experience = (props) => {
-  const { formData, setFormData } = props;
-
+  const { formData, setFormData, handlePageNext } = props;
+  const dispatch = useDispatch();
   useEffect(() => {
     GetAboutData(formData);
   }, [formData]);
@@ -40,6 +43,9 @@ const Experience = (props) => {
       onSubmit={(values, { setSubmitting }) => {
         // Your form submission logic here
         console.log("Form Submitted");
+        console.log("FORM VALUES", values);
+        handlePageNext();
+        dispatch(setCandidateProfile(values));
         console.log(values);
         setSubmitting(false);
         setFormSubmitted(true);
@@ -187,17 +193,15 @@ const Experience = (props) => {
                   <Image src={add} alt="" /> Add City
                 </button>
               </div>
-              {/* <div class="col-span-6">
-            <Link href="/education">
-              {" "}
-              <button
-                // onClick={handlePageClick}
-                className="text-center shadow-md bg-[#0076FC] shadow-blue-200 rounded-full w-full py-2 text-white"
-              >
-                Next
-              </button>
-            </Link>
-          </div> */}
+              <div class="col-span-6">
+                {" "}
+                <button
+                  // onClick={handlePageClick}
+                  className="text-center shadow-md bg-[#0076FC] shadow-blue-200 rounded-full w-full py-2 text-white"
+                >
+                  Next
+                </button>
+              </div>
             </Form>
           </div>
         </div>

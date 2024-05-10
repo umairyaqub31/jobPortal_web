@@ -4,11 +4,22 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import upload from "@/public/assets/upload.svg";
 import { GetUserCV } from "@/app/actions";
-import { uploadFile } from "../services";
+import { candidateRegister, uploadFile } from "../services";
 import check from "@/public/list.png";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setAuthToken,
+  setCandidateProfile,
+  setIsLoggedIn,
+  setUser,
+} from "../redux";
 
 const UploadCVComp = (props) => {
-  const { formData, setFormData } = props;
+  const { formData, setFormData, handlePageNext } = props;
+  const dispatch = useDispatch();
+  const { candidateProfile } = useSelector((state) => state.root.user);
+  const [loading, setLoading] = useState(false);
+  console.log("...........", candidateProfile);
   const [image, setImage] = useState([]);
   console.log("image :::", image);
 
@@ -19,7 +30,14 @@ const UploadCVComp = (props) => {
 
     uploadFile(data)
       .then((res) => {
+        console.log("...CV form", res);
         setFormData({ ...formData, cv: res?.data?.fileUrl });
+        dispatch(
+          setCandidateProfile({
+            ...candidateProfile,
+            CVLink: res?.data?.fileUrl,
+          })
+        );
       })
       .catch((err) => {
         console.log("err.....", err?.message);
@@ -33,6 +51,13 @@ const UploadCVComp = (props) => {
     }
   }, [image]);
 
+  const handlePageClick = () => {
+    if (candidateProfile.CVLink && candidateProfile.CVLink.trim() !== "") {
+      handlePageNext();
+    } else {
+      console.log(".................EERROORR");
+    }
+  };
   return (
     <>
       <div className="w-full min-h-[70vh] h-auto flex flex-col justify-start items-center text-[#434343] gap-6 lg:py-8 py-4 lg:px-14 px-4 duration-300">
@@ -63,6 +88,15 @@ const UploadCVComp = (props) => {
             <p className="text-sm font-semibold">Upload Your CV Here</p>
           </label>
         </div>
+      </div>
+      <div class="col-span-6">
+        {" "}
+        <button
+          onClick={handlePageClick}
+          className="text-center shadow-md bg-[#0076FC] shadow-blue-200 rounded-full w-full py-2 text-white"
+        >
+          Next
+        </button>
       </div>
     </>
   );

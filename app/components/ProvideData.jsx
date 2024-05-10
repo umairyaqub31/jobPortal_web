@@ -5,12 +5,14 @@ import { useEffect, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import Loader from "./loader";
+import { setEmployeeProfile } from "../redux";
+import { useDispatch } from "react-redux";
 
 const ProvideDataComp = (props) => {
-  const { formData, setFormData, handleClickNext } = props;
+  const dispatch = useDispatch();
+  const { formData, setFormData, handlePageNext } = props;
   const [formSubmitted, setFormSubmitted] = useState(false);
 
-  console.log(">...............", handleClickNext);
   return (
     <Formik
       initialValues={{
@@ -34,23 +36,25 @@ const ProvideDataComp = (props) => {
           .required("Required"),
       })}
       onSubmit={(values, { setSubmitting }) => {
-        handleClickNext();
-        // Your form submission logic here
+        console.timeLog(">............");
+        handlePageNext();
+        dispatch(setEmployeeProfile(values));
+
         console.log("Form Submitted");
         console.log(values);
         setSubmitting(false);
         setFormSubmitted(true);
       }}
     >
-      {(formik) => (
-        <div className="lg:min-w-[45vw] min-w-[60vw] grow w-full h-auto min-h-[80vh] py-2">
-          <div className="w-full space-y-2 lg:space-y-8">
-            <div className="">
-              <h1 className="font-bold text-xl text-[#000000]">
-                Provide The Following Data About Yourself
-              </h1>
-            </div>
-            <Form className="grid grid-cols-6 lg:gap-6 gap-2 text-[#434343] text-sm">
+      <div className="lg:min-w-[45vw] min-w-[60vw] grow w-full h-auto min-h-[80vh] py-2">
+        <div className="w-full space-y-2 lg:space-y-8">
+          <div className="">
+            <h1 className="font-bold text-xl text-[#000000]">
+              Provide The Following Data About Yourself
+            </h1>
+          </div>
+          <Form>
+            <div className="grid grid-cols-6 lg:gap-6 gap-2 text-[#434343] text-sm">
               <div className="col-span-6 space-y-2 sm:col-span-3">
                 <label
                   htmlFor="fullName"
@@ -61,6 +65,7 @@ const ProvideDataComp = (props) => {
                 <Field
                   type="text"
                   name="fullName"
+                  id="fullName"
                   placeholder="Enter Full Name"
                   className="w-full h-14 rounded-lg border outline-none px-4 bg-white text-sm text-[#949494] shadow-sm"
                 />
@@ -81,6 +86,7 @@ const ProvideDataComp = (props) => {
                 <Field
                   type="email"
                   name="email"
+                  id="email"
                   placeholder="Enter Email Address"
                   className="w-full h-14 rounded-lg border outline-none px-4 bg-white text-sm text-[#949494] shadow-sm"
                 />
@@ -124,6 +130,7 @@ const ProvideDataComp = (props) => {
                 <Field
                   type="text"
                   name="consultancyName"
+                  id="consultancyName"
                   placeholder="Consultancy Name"
                   className="w-full h-14 rounded-lg border outline-none px-4 bg-white text-sm text-[#949494] shadow-sm"
                 />
@@ -144,6 +151,7 @@ const ProvideDataComp = (props) => {
                 <Field
                   type="text"
                   name="workingAs"
+                  id="workingAs"
                   placeholder="Working As"
                   className="w-full h-14 rounded-lg border outline-none px-4 bg-white text-sm text-[#949494] shadow-sm"
                 />
@@ -153,23 +161,16 @@ const ProvideDataComp = (props) => {
                   className="text-red-500 text-xs mt-1"
                 />
               </div>
-            </Form>
-            <button
-              type="submit"
-              disabled={!formik.isValid || !formik.dirty || formSubmitted}
-              className="text-center shadow-md bg-[#0076FC] shadow-blue-200 rounded-full w-full py-2 text-white"
-            >
-              {formik.isSubmitting ? (
-                <div className="flex items-center justify-center ">
-                  <Loader color={"#fff"} size="50" />
-                </div>
-              ) : (
-                "Next"
-              )}
-            </button>
-          </div>
+              <button
+                type="submit"
+                className="text-center shadow-md bg-[#0076FC] shadow-blue-200 rounded-full w-full py-2 text-white"
+              >
+                Next
+              </button>
+            </div>
+          </Form>
         </div>
-      )}
+      </div>
     </Formik>
   );
 };

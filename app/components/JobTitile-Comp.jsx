@@ -5,11 +5,16 @@ import { GetAllValues, GetJobExperienceData } from "@/app/actions";
 import { useState, useEffect } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { useDispatch, useSelector } from "react-redux";
+import { setCandidateProfile } from "../redux";
 
 // ! icons imports
 
 const JobTitileComp = (props) => {
-  const { formData, setFormData } = props;
+  const dispatch = useDispatch();
+  const { candidateProfile } = useSelector((state) => state.root.user);
+  console.log("Job Title............", candidateProfile);
+  const { formData, setFormData, handlePageNext } = props;
   const [dialog, setDialog] = useState(true);
   // const [formData, setFormData] = useState({
   //   jobRole: "",
@@ -58,7 +63,9 @@ const JobTitileComp = (props) => {
           onSubmit={(values, { setSubmitting }) => {
             // Your form submission logic here
             console.log("Form Submitted");
+            dispatch(setCandidateProfile({ ...candidateProfile, ...values }));
             console.log(values);
+            handlePageNext();
             setSubmitting(false);
             setFormSubmitted(true);
           }}
@@ -126,6 +133,15 @@ const JobTitileComp = (props) => {
                 component="div"
                 className="text-red-500 text-xs mt-1"
               />
+            </div>
+            <div class="col-span-6">
+              {" "}
+              <button
+                // onClick={handlePageClick}
+                className="text-center shadow-md bg-[#0076FC] shadow-blue-200 rounded-full w-full py-2 text-white"
+              >
+                Next
+              </button>
             </div>
           </Form>
         </Formik>

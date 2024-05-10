@@ -1,3 +1,4 @@
+import { candidateLogin } from "@/app/services";
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
@@ -10,6 +11,42 @@ const initialState = {
   companyName: "",
   companyId: "",
   jobId: "",
+
+  candidateProfile: {
+    firstName: "",
+    gender: "",
+    email: "",
+    DOB: "",
+    city: "",
+    locality: "",
+
+    school: "",
+    degree: "",
+    grade: "",
+    fieldofStudy: "",
+    startDateMonth: "",
+    startDateYear: "",
+    endDateMonth: "",
+    endDateYear: "",
+
+    ExperienceLevel: "",
+
+    yearsofExperience: "",
+    jobPreferences: "",
+
+    CVLink: "",
+
+    aboutUs: "",
+    age: "",
+    language: "",
+  },
+  employeeProfile: {
+    fullName: "",
+    email: "",
+    companyRole: "",
+    consultancyName: "",
+    workingAs: "",
+  },
 };
 
 export const userReducer = createSlice({
@@ -49,6 +86,12 @@ export const userReducer = createSlice({
     setJobId: (state, action) => {
       state.jobId = action.payload;
     },
+    setCandidateProfile: (state, action) => {
+      state.candidateProfile = action.payload;
+    },
+    setEmployeeProfile: (state, action) => {
+      state.employeeProfile = action.payload;
+    },
   },
 });
 
@@ -63,6 +106,8 @@ export const {
   setCompanyName,
   setCompanyId,
   setJobId,
+  setCandidateProfile,
+  setEmployeeProfile,
 } = userReducer.actions;
 
 export default userReducer.reducer;
