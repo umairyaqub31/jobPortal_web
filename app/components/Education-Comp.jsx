@@ -115,7 +115,7 @@ const EducationComp = (props) => {
           <h1 className="text-[#000000] font-bold text-xl">{`Education`}</h1>
 
           {/* inner container  */}
-          <Form>
+          <Form className="w-full">
             <div className="flex flex-col w-full h-auto gap-4">
               {/* container 1 */}
               <div className="w-full h-auto gap-2 p-4 bg-[#F8F8F8] rounded-3xl flex flex-col justify-center items-start">
@@ -233,11 +233,6 @@ const EducationComp = (props) => {
                       as="select"
                       className="h-14 w-full rounded-lg border outline-none px-4 bg-white text-sm text-[#949494] shadow-sm"
                     >
-                      <ErrorMessage
-                        name="startDateMonth"
-                        component="div"
-                        className="text-red-500 text-xs mt-1"
-                      />
                       <option value="">Select Month</option>
                       <option value="Jan">Jan</option>
                       <option value="Feb">Feb</option>
@@ -364,7 +359,7 @@ const EducationComp = (props) => {
               {" "}
               <button
                 // onClick={handlePageClick}
-                className="text-center shadow-md bg-[#0076FC] shadow-blue-200 rounded-full w-full py-2 text-white"
+                className="text-center mt-[40px] shadow-md bg-[#0076FC] shadow-blue-200 rounded-full w-full py-2 text-white"
               >
                 Next
               </button>

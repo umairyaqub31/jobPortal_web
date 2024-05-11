@@ -58,8 +58,6 @@ const FInalPageComp = () => {
   }, [image]);
 
   const APIHIT = (values) => {
-    let currentData = Formik.values;
-
     console.log(">.....................", values);
     let params = {
       phone: "03008863443",
@@ -185,7 +183,7 @@ const FInalPageComp = () => {
                 </div>
               </div>
 
-              <div className="w-full h-auto ">
+              <div className="w-full h-auto mt-[16px]">
                 <Field
                   name="aboutUs"
                   id="aboutUs"
@@ -201,7 +199,7 @@ const FInalPageComp = () => {
                 />
               </div>
 
-              <div className="flex flex-col w-full h-auto space-y-2">
+              <div className="flex flex-col w-full h-auto space-y-2 mt-[16px]">
                 <label htmlFor="Age" className="text-sm font-semibold">
                   Age
                 </label>
@@ -210,7 +208,7 @@ const FInalPageComp = () => {
                   name="age"
                   type="text"
                   placeholder="Enter Your Age"
-                  className="rounded-xl border outline-none w-[35%] h-[44px] p-4"
+                  className="rounded-xl border outline-none w-[100%] h-[44px] p-4"
                 />
               </div>
               <ErrorMessage
@@ -219,7 +217,7 @@ const FInalPageComp = () => {
                 className="text-red-500 text-xs mt-1"
               />
 
-              <div className="col-span-6 gap-2">
+              <div className="col-span-6 gap-2 mt-[16px]">
                 <label
                   htmlFor="skill"
                   className="block py-2 text-sm font-semibold text-[#434343]"
@@ -249,15 +247,13 @@ const FInalPageComp = () => {
                 />
               </div>
 
-              <div className="w-full h-auto">
-                {/* <Link href="/profile-info"> */}
+              <div className="w-full h-auto mt-[74px]">
                 <button
                   type="submit"
                   className="text-center shadow-md bg-[#0076FC] shadow-blue-200 rounded-full w-full py-2 text-white"
                 >
-                  Next
+                  Submit
                 </button>
-                {/* </Link> */}
               </div>
             </Form>
           </Formik>

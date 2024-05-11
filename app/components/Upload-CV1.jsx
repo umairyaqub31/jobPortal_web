@@ -21,6 +21,7 @@ const UploadCVComp = (props) => {
   const [loading, setLoading] = useState(false);
   console.log("...........", candidateProfile);
   const [image, setImage] = useState([]);
+  const [error, setError] = React.useState("");
   console.log("image :::", image);
 
   const fileUpload = async () => {
@@ -55,6 +56,7 @@ const UploadCVComp = (props) => {
     if (candidateProfile.CVLink && candidateProfile.CVLink.trim() !== "") {
       handlePageNext();
     } else {
+      setError("Required");
       console.log(".................EERROORR");
     }
   };
@@ -87,13 +89,14 @@ const UploadCVComp = (props) => {
             <Image src={upload} alt="Upload Icon" className="w-5 h-5 " />
             <p className="text-sm font-semibold">Upload Your CV Here</p>
           </label>
+          {error && <div className="text-red-500">{error}</div>}
         </div>
       </div>
-      <div class="col-span-6">
+      <div class="col-span-6 w-full">
         {" "}
         <button
           onClick={handlePageClick}
-          className="text-center shadow-md bg-[#0076FC] shadow-blue-200 rounded-full w-full py-2 text-white"
+          className="text-center shadow-md bg-[#0076FC] shadow-blue-200 rounded-full w-[100%] py-2 text-white"
         >
           Next
         </button>

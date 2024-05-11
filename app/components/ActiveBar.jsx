@@ -238,7 +238,7 @@ const ActiveBar = ({ activePage, setActivePage, children }) => {
         // )
       }
 
-      <button
+      {/* <button
         onClick={handlePageNext}
         className="text-center shadow-md bg-[#0076FC] shadow-blue-200 rounded-full w-full py-2 text-white"
       >
@@ -249,7 +249,7 @@ const ActiveBar = ({ activePage, setActivePage, children }) => {
         ) : (
           "Next"
         )}
-      </button>
+      </button> */}
     </div>
   );
 };

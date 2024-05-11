@@ -70,7 +70,7 @@ const JobTitileComp = (props) => {
             setFormSubmitted(true);
           }}
         >
-          <Form>
+          <Form className="w-full">
             <div className="flex flex-col items-start justify-center w-full h-auto space-y-2 lg:lg:space-y-4">
               <label
                 htmlFor="Role"
@@ -134,11 +134,11 @@ const JobTitileComp = (props) => {
                 className="text-red-500 text-xs mt-1"
               />
             </div>
-            <div class="col-span-6">
+            <div class="col-span-6 mt-8">
               {" "}
               <button
                 // onClick={handlePageClick}
-                className="text-center shadow-md bg-[#0076FC] shadow-blue-200 rounded-full w-full py-2 text-white"
+                className="text-center mt-[40px] shadow-md bg-[#0076FC] shadow-blue-200 rounded-full w-full py-2 text-white"
               >
                 Next
               </button>

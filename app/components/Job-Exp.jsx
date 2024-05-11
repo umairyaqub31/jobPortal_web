@@ -380,7 +380,7 @@ const JobExpComp = (props) => {
           setFormSubmitted(true);
         }}
       >
-        <Form>
+        <Form className="w-full">
           <div className="flex flex-col items-center justify-start w-full h-auto gap-8 text-[#434343] pb-[10vh]">
             {/* experience input */}
             <div className="w-full h-auto space-y-2">

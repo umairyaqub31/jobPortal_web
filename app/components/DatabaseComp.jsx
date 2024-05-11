@@ -121,6 +121,17 @@ const DatabaseComp = () => {
                 {`${item.title}`}
               </button>
             ))}
+            <div className="flex justify-end ml-80">
+              <select
+                name="gender"
+                className="h-8 w-full rounded-lg border outline-none px-4 bg-white text-sm text-[#949494] shadow-sm"
+              >
+                <option value="">Select</option>
+                <option value="Pending">Pending</option>
+                <option value="Rejected">Rejected</option>
+                <option value="Shortlist">Shortlist</option>
+              </select>
+            </div>
           </div>
 
           {/* main content body */}
