@@ -8,9 +8,10 @@ import Image from "next/image";
 // * local imports
 import addBtn from "@/public/addBtn.png";
 import MapPoint from "@/public/location.png";
+import { useSelector } from "react-redux";
 
 const AllJobsComp = (props) => {
-  const { data } = props;
+  const { allJobs } = useSelector((state) => state.root.user);
   const [activeBtn, setActiveBtn] = useState(false);
   // useEffect(() => {
   //   console.log("useEffect chala ha ");
@@ -68,7 +69,7 @@ const AllJobsComp = (props) => {
         <div className="flex flex-col items-start justify-start w-full h-auto gap-4 bg-transparent">
           {/* jobs item */}
 
-          {data?.map((item, idx) => (
+          {allJobs?.map((item, idx) => (
             <div
               key={idx}
               className="w-full lg:max-h-[106px] h-auto bg-white rounded-2xl p-6 flex md:flex-row flex-col justify-between items-center gap-4"

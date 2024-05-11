@@ -9,6 +9,7 @@ const ENDPOINTS = {
   SIGN_UP: "employee/register",
   GET_ALL_JOBS: "employee/getAllJobs",
   POST_JOB: "employee/postJob",
+  GET_APPLICANT: "employee/getApplicants",
 
   //.....................Candidate...............................
   CAND_LOGIN: "candidate/login",

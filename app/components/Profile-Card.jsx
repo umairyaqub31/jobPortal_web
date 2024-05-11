@@ -12,7 +12,9 @@ import Book from "@/public/Book Bookmark.png";
 import arrowDown from "@/public/arroeDown.png";
 import blueTick from "@/public/blueTick.png";
 import { RemarkOptionData } from "@/lib/data";
-const ProfileCardComp = () => {
+const ProfileCardComp = (props) => {
+  const { applicants } = props;
+  console.log("applicants............PROPS..", applicants);
   const [enableRemark, setEnableRemark] = useState(false);
   const [isCheckedArray, setIsCheckedArray] = useState(
     new Array(RemarkOptionData.length).fill(false)
@@ -25,7 +27,6 @@ const ProfileCardComp = () => {
   };
   return (
     <>
-      {/* main container */}
       <div className="flex flex-col items-center justify-start w-full h-auto gap-4 md:px-4 px-2 pt-6 pb-4 bg-white border rounded-2xl">
         {/* top container */}
         <div className="flex md:flex-row flex-col gap-4 items-center justify-between w-full h-auto">
@@ -42,7 +43,7 @@ const ProfileCardComp = () => {
             {/* info div */}
             <div className="text-[#393A44] w-auto h-auto flex flex-col justify-start items-start gap-2">
               <h1 className="md:text-base text-sm font-semibold">
-                Stocking Associate
+                {applicants?.fullName}
               </h1>
               <button className="min-w-[106px] min-h-[23px] w-auto h-auto py-1 px-4 gap-2 rounded-full flex justify-center items-center text-center bg-[#A37E7A1A] text-[#916D61] text-[10px] font-semibold">
                 Applied Today
@@ -71,7 +72,7 @@ const ProfileCardComp = () => {
                     height={500}
                     className="object-contain w-4 h-4"
                   />
-                  <span className="">graduate</span>
+                  <span className="">{applicants?.degree}</span>
                 </div>
               </div>
 

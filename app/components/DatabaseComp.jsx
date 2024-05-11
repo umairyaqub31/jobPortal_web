@@ -2,16 +2,48 @@
 
 // *imports
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // * local imports
 import { DatabaseButtonData } from "@/lib/data";
 import arroeDown from "@/public/arroeDown.png";
 import Download from "@/public/Download.png";
 import ProfileCardComp from "./Profile-Card";
+import { useSelector } from "react-redux";
+import Loader from "./loader";
+import { getApplicants } from "../services";
 const DatabaseComp = () => {
+  const { allJobs } = useSelector((state) => state.root.user);
+  console.log(">.........................allJobs", allJobs);
   const [enableFilter, setEnableFilter] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [enableCandidate, setEnableCandidate] = useState(true);
+  const jobTitles = [...new Set(allJobs.map((job) => job.jobTitle))];
+  const [selectedJobTitleId, setSelectedJobTitleId] = useState("");
+  const [applicants, setApplicants] = useState([]);
+
+  const handleJobTitleChange = (event) => {
+    const selectedJobTitle = event.target.value;
+    const selectedJob = allJobs.find(
+      (job) => job.jobTitle === selectedJobTitle
+    );
+    setSelectedJobTitleId(selectedJob ? selectedJob._id : "");
+    setLoading(true);
+    getApplicants(selectedJob._id)
+      .then((res) => {
+        console.log("RESPONSE............", res);
+        setApplicants(res.data.applicants);
+      })
+      .catch((err) => {
+        console.log("Error..........", err.message);
+      })
+      .finally(() => setLoading(false));
+  };
+
+  useEffect(() => {
+    console.log("nnnnnnnnnnnnnnnnnnnnnn", selectedJobTitleId);
+  }, [selectedJobTitleId]);
+
   return (
     <>
       {/* main container */}
@@ -123,14 +155,23 @@ const DatabaseComp = () => {
             ))}
             <div className="flex justify-end ml-80">
               <select
-                name="gender"
+                name="jobTitle"
+                value={selectedJobTitleId}
+                onChange={handleJobTitleChange}
                 className="h-8 w-full rounded-lg border outline-none px-4 bg-white text-sm text-[#949494] shadow-sm"
               >
                 <option value="">Select</option>
-                <option value="Pending">Pending</option>
-                <option value="Rejected">Rejected</option>
-                <option value="Shortlist">Shortlist</option>
+                {jobTitles.map((title, index) => (
+                  <option key={index} value={index._id}>
+                    {title}
+                  </option>
+                ))}
               </select>
+              {loading && (
+                <div className="flex items-center justify-center ">
+                  <Loader color={"blue"} size="20" />
+                </div>
+              )}
             </div>
           </div>
 
@@ -159,8 +200,9 @@ const DatabaseComp = () => {
               </button>
             </div>
 
-            <ProfileCardComp />
-            <ProfileCardComp />
+            {applicants.map((applicant, index) => (
+              <ProfileCardComp key={index} applicants={applicant} />
+            ))}
           </div>
         </div>
       </div>

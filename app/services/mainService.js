@@ -9,7 +9,13 @@ export const getAllJobs = () => {
 export const postJob = (params) => {
   return HTTP_CLIENT.post(ENDPOINTS.POST_JOB, params);
 };
-
+export const getApplicants = (jobid) => {
+  console.log("..................", jobid);
+  let page = 1;
+  return HTTP_CLIENT.get(
+    `${ENDPOINTS.GET_APPLICANT}?jobId=${jobid}&page=${page}`
+  );
+};
 export const topCompanies = (pageno) => {
   return HTTP_CLIENT.get(`${ENDPOINTS.CAND_TOPCOMPANIES}?page=${pageno}`);
 };

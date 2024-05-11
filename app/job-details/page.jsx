@@ -21,12 +21,14 @@ import servion from "@/public/servion.png";
 import HeadBarComp from "@/app/components/Headbar";
 import { applyJob, getjobDetails } from "../services";
 import { useSelector } from "react-redux";
+import Loader from "../components/loader";
 
 const JobDetailsPage = () => {
   const { jobId } = useSelector((state) => state.root.user);
   console.log("setJobId", jobId);
   const [seeMore, setSeeMore] = useState(false);
   const [jobDetails, setJobDetails] = useState({});
+  const [loading, setLoading] = useState(false);
 
   const fetchJobDetails = () => {
     getjobDetails(jobId)
@@ -40,6 +42,7 @@ const JobDetailsPage = () => {
   };
 
   const jobApply = () => {
+    setLoading(true);
     let params = {
       jobId: jobId,
     };
@@ -47,11 +50,13 @@ const JobDetailsPage = () => {
     applyJob(params)
       .then((res) => {
         console.log("Apply Job API...............", res);
+        alert("Successfully");
         setJobDetails(res.data.job);
       })
       .catch((err) => {
         console.log("err.....", err?.message);
-      });
+      })
+      .finally(() => setLoading(false));
   };
 
   useEffect(() => {
@@ -198,7 +203,13 @@ const JobDetailsPage = () => {
                 onClick={jobApply}
                 className="bg-[#3F6EEC] py-2 px-4 rounded-full min-w-[132px] md:w-auto w-full h-[37px] flex flex-nowrap justify-center items-center text-center gap-1 text-white text-sm font-normal"
               >
-                {`Apply Now`}
+                {loading ? (
+                  <div className="flex items-center justify-center ">
+                    <Loader color={"#fff"} size="50" />
+                  </div>
+                ) : (
+                  "Apply Now"
+                )}
 
                 <Image
                   src={Arrow}

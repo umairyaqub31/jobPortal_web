@@ -16,7 +16,9 @@ import { useRouter } from "next/navigation";
 const FInalPageComp = () => {
   const router = useRouter();
   const [image, setImage] = useState(null);
-  const { candidateProfile } = useSelector((state) => state.root.user);
+  const { candidateProfile, phoneNumber } = useSelector(
+    (state) => state.root.user
+  );
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   console.log(
@@ -60,7 +62,7 @@ const FInalPageComp = () => {
   const APIHIT = (values) => {
     console.log(">.....................", values);
     let params = {
-      phone: "03008863443",
+      phone: phoneNumber,
       fullName: candidateProfile.firstName,
       gender: candidateProfile.gender,
       email: candidateProfile.email,

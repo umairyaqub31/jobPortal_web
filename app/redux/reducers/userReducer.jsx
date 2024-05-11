@@ -47,6 +47,8 @@ const initialState = {
     consultancyName: "",
     workingAs: "",
   },
+
+  allJobs: [],
 };
 
 export const userReducer = createSlice({
@@ -92,6 +94,9 @@ export const userReducer = createSlice({
     setEmployeeProfile: (state, action) => {
       state.employeeProfile = action.payload;
     },
+    setAllJobs: (state, action) => {
+      state.allJobs = action.payload;
+    },
   },
 });
 
@@ -108,6 +113,7 @@ export const {
   setJobId,
   setCandidateProfile,
   setEmployeeProfile,
+  setAllJobs,
 } = userReducer.actions;
 
 export default userReducer.reducer;

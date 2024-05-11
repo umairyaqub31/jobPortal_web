@@ -4,22 +4,25 @@ import AllJobsComp from "@/app/components/AllJobsComp";
 import DatabaseComp from "@/app/components/DatabaseComp";
 import HeadBarComp from "@/app/components/Headbar";
 import ReferralComp from "@/app/components/ReferralComp";
+import { setAllJobs } from "@/app/redux";
 import { getAllJobs } from "@/app/services";
 import { EmployeeNavData } from "@/lib/data";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 const EMployeeJobsPage = () => {
-  const [jobs, setJobs] = useState([]);
-  const [currentIndex, setCurrentIndex] = useState(1);
+  const { allJobs } = useSelector((state) => state.root.user);
 
+  const [currentIndex, setCurrentIndex] = useState(1);
+  const dispatch = useDispatch();
   const fetchJobs = () => {
     getAllJobs()
       .then((res) => {
         console.log("ress....", res?.data);
-        setJobs(res?.data?.jobs);
+        dispatch(setAllJobs(res?.data?.jobs));
       })
       .catch((err) => {
-        console.log("err.....", err?.response?.data?.message);
+        console.log("err.....", err?.message);
       });
   };
   useEffect(() => {
@@ -61,7 +64,7 @@ const EMployeeJobsPage = () => {
         <div className="w-auto h-full lg:pr-[7%] pr-[1%] min-h-screen duration-300 grow">
           {currentIndex == 1 ? (
             <>
-              <AllJobsComp data={jobs} />
+              <AllJobsComp />
             </>
           ) : currentIndex == 2 ? (
             <>
