@@ -94,7 +94,8 @@ const TradingJobsComp = () => {
       {/* ?main comp */}
       <div className="w-full h-auto flex flex-col justify-center items-center text-center bg-white md:gap-8 gap-4 md:p-[100px] p-4">
         {/* quote  */}
-        <h1 className="w-full h-auto md:text-[36px] text-[20px] font-bold">{`Trending Job Roles`}</h1>
+        <h1 className="w-full h-auto md:text-[36px] text-[20px] font-bold">{`Get Ahead: Apply for Trending Job Roles Today
+`}</h1>
 
         {/* card container */}
         <div className="flex items-center justify-center w-full h-auto gap-0 overflow-x-hidden flex-nowrap ">

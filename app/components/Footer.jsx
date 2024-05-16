@@ -4,6 +4,7 @@ import Image from "next/image";
 import FooterImg from "@/public/footer-logo.png";
 import Social from "@/public/Social.png";
 import { interceptorConfig } from "../services/config";
+import Link from "next/link";
 
 const FooterComp = () => {
   useEffect(() => {
@@ -33,7 +34,9 @@ const FooterComp = () => {
       </div>
 
       <div className="text-[#FFFFFF] text-sm font-normal flex flex-nowrap gap-[20px] justify-center items-center w-full h-auto text-center">
-        <p className="">{`Privacy Policy`}</p>
+        <Link href="/PrivacyPolicy">
+          <p className="">{`Privacy Policy`}</p>
+        </Link>
         <p className="">{`Terms & Conditions`}</p>
       </div>
     </div>
