@@ -5,7 +5,9 @@ import Image from "next/image";
 import { useState } from "react";
 
 // ! local imports
-import DP from "@/public/dp.png";
+import DP from "@/public/11.jpg";
+import DP1 from "@/public/22.jpg";
+import DP2 from "@/public/33.jpg";
 
 // ! lib imports
 
@@ -90,20 +92,20 @@ const ClientCardComp = ({ data }) => {
             <SwiperSlide>
               <div className="bg-[#FFFFFF] max-w-[350px] w-auto h-[337px] gap-4 rounded-2xl drop-shadow-sm flex flex-nowrap flex-col justify-between items-start duration-300 text-start">
                 <div className="w-full h-[205px] bg-[#F8F8F8] flex flex-col justify-center gap-2 items-center text-[#393A44]">
-                  <h1 className="text-2xl font-semibold">{`Efficie`}</h1>
+                  {/* <h1 className="text-2xl font-semibold">{`Efficie`}</h1> */}
                   <p className="flex flex-wrap w-full px-12 h-auto text-sm font-normal text-center text-[#909198]">
-                    {`Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor neque sed imperdiet nibh lectus feugiat nunc sem.`}
+                    {`My experience with hieron was excellent. Their team's expertise, commitment, and customer-centric approach make them a standout player in the industry. very cooperative employee and management.`}
                   </p>
                 </div>
 
                 <div className="flex flex-col items-center justify-center w-full h-auto">
                   <Image
-                    src={DP}
+                    src={DP1}
                     alt="dp"
                     className="object-contain rounded-full w-14 h-14"
                   />
 
-                  <h1 className="text-xl font-semibold">{`Jane Cooper`}</h1>
+                  <h1 className="text-xl font-semibold">{`Nitin Tiwari`}</h1>
                   <p className="flex flex-wrap w-full justify-center items-center h-auto text-sm font-normal text-center text-[#474A57]">
                     {`CEO at ABC Corporation`}
                   </p>
@@ -113,9 +115,9 @@ const ClientCardComp = ({ data }) => {
             <SwiperSlide>
               <div className="bg-[#FFFFFF] max-w-[350px] w-auto h-[337px] gap-4 rounded-2xl drop-shadow-sm flex flex-nowrap flex-col justify-between items-start duration-300 text-start">
                 <div className="w-full h-[205px] bg-[#F8F8F8] flex flex-col justify-center gap-2 items-center text-[#393A44]">
-                  <h1 className="text-2xl font-semibold">{`Efficie`}</h1>
+                  {/* <h1 className="text-2xl font-semibold">{`Efficie`}</h1> */}
                   <p className="flex flex-wrap w-full px-12 h-auto text-sm font-normal text-center text-[#909198]">
-                    {`Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor neque sed imperdiet nibh lectus feugiat nunc sem.`}
+                    {`My experience with Hieron was outstanding. Their team's expertise, dedication, and customer-centric approach truly set them apart in the industry. The employees and management were incredibly cooperative.`}
                   </p>
                 </div>
 
@@ -126,7 +128,7 @@ const ClientCardComp = ({ data }) => {
                     className="object-contain rounded-full w-14 h-14"
                   />
 
-                  <h1 className="text-xl font-semibold">{`Jane Cooper`}</h1>
+                  <h1 className="text-xl font-semibold">{`Jeetendra sharma`}</h1>
                   <p className="flex flex-wrap w-full justify-center items-center h-auto text-sm font-normal text-center text-[#474A57]">
                     {`CEO at ABC Corporation`}
                   </p>
@@ -136,22 +138,24 @@ const ClientCardComp = ({ data }) => {
             <SwiperSlide>
               <div className="bg-[#FFFFFF] max-w-[350px] w-auto h-[337px] gap-4 rounded-2xl drop-shadow-sm flex flex-nowrap flex-col justify-between items-start duration-300 text-start">
                 <div className="w-full h-[205px] bg-[#F8F8F8] flex flex-col justify-center gap-2 items-center text-[#393A44]">
-                  <h1 className="text-2xl font-semibold">{`Efficie`}</h1>
+                  {/* <h1 className="text-2xl font-semibold">{`Efficie`}</h1> */}
                   <p className="flex flex-wrap w-full px-12 h-auto text-sm font-normal text-center text-[#909198]">
-                    {`Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor neque sed imperdiet nibh lectus feugiat nunc sem.`}
+                    {`I had an excellent experience with Hieron. The team's expertise, commitment, and focus on customer satisfaction make them a standout in the industry. Both the employees and management were very cooperative.`}
                   </p>
                 </div>
 
                 <div className="flex flex-col items-center justify-center w-full h-auto">
                   <Image
-                    src={DP}
+                    src={DP2}
                     alt="dp"
                     className="object-contain rounded-full w-14 h-14"
                   />
 
-                  <h1 className="text-xl font-semibold">{`Jane Cooper`}</h1>
+                  <h1 className="text-xl font-semibold">{`Review Ankita`}</h1>
                   <p className="flex flex-wrap w-full justify-center items-center h-auto text-sm font-normal text-center text-[#474A57]">
-                    {`CEO at ABC Corporation`}
+                    {`CFO at Gandhi Enterprises
+
+`}
                   </p>
                 </div>
               </div>
@@ -159,7 +163,7 @@ const ClientCardComp = ({ data }) => {
             <SwiperSlide>
               <div className="bg-[#FFFFFF] max-w-[350px] w-auto h-[337px] gap-4 rounded-2xl drop-shadow-sm flex flex-nowrap flex-col justify-between items-start duration-300 text-start">
                 <div className="w-full h-[205px] bg-[#F8F8F8] flex flex-col justify-center gap-2 items-center text-[#393A44]">
-                  <h1 className="text-2xl font-semibold">{`Efficie`}</h1>
+                  {/* <h1 className="text-2xl font-semibold">{`Efficie`}</h1> */}
                   <p className="flex flex-wrap w-full px-12 h-auto text-sm font-normal text-center text-[#909198]">
                     {`Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor neque sed imperdiet nibh lectus feugiat nunc sem.`}
                   </p>
@@ -172,9 +176,9 @@ const ClientCardComp = ({ data }) => {
                     className="object-contain rounded-full w-14 h-14"
                   />
 
-                  <h1 className="text-xl font-semibold">{`Jane Cooper`}</h1>
+                  <h1 className="text-xl font-semibold">{`Ankita Yadav`}</h1>
                   <p className="flex flex-wrap w-full justify-center items-center h-auto text-sm font-normal text-center text-[#474A57]">
-                    {`CEO at ABC Corporation`}
+                    {`CEO at Common Industries`}
                   </p>
                 </div>
               </div>

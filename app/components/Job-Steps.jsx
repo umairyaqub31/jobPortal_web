@@ -11,15 +11,15 @@ import arrow from "@/public/arrow.png";
 
 const stepsData = [
   {
-    title: `Build Apna Profile In Just 3 Steps`,
+    title: ` Build your Profile `,
     description: `Lorem ipsum dolor sit amet consectetur. Pretium consectetur mi lectus eget mi `,
   },
   {
-    title: `Build Apna Profile In Just 3 Steps`,
+    title: ` Call Directly with Decision makers`,
     description: `Lorem ipsum dolor sit amet consectetur. Pretium consectetur mi lectus eget mi `,
   },
   {
-    title: `Build Apna Profile In Just 3 Steps`,
+    title: `Get Hired`,
     description: `Lorem ipsum dolor sit amet consectetur. Pretium consectetur mi lectus eget mi `,
   },
 ];
@@ -89,7 +89,9 @@ const JobStepsComp = () => {
                 <Steps.Step
                   key={index}
                   title={
-                    <h1 className="w-full  h-auto lg:text-[28px] text-[20px] font-bold text-[#3F6EEC]">{`Build Apna Profile In Just 3 Steps`}</h1>
+                    <h1 className="w-full  h-auto lg:text-[28px] text-[20px] font-bold text-[#3F6EEC]">
+                      {item.title}
+                    </h1>
                   }
                   description={
                     <p className="text-sm font-medium lg:text-base lg:w-[519px] w-[331px]">

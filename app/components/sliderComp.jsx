@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
+
 import BedTime from "@/public/Bedtime.png";
 
 // Import Swiper React components

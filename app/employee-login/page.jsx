@@ -23,6 +23,8 @@ import {
   setUser,
   setloginusername,
 } from "../redux";
+import "react-phone-number-input/style.css";
+import PhoneInput from "react-phone-number-input";
 
 const EmployeeLoginPage = () => {
   const [error, setError] = useState(false);
@@ -58,16 +60,26 @@ const EmployeeLoginPage = () => {
     setLoading(true);
 
     try {
-      const appVerifier = new RecaptchaVerifier(auth, "sign-in-button", {
-        size: "invisible",
-      });
-      // const formattedPhoneNumber = `+${phone.replace(/\D/g, "")}`;
-      const formattedPhoneNumber = `+92${phone.replace(/\D/g, "")}`;
+      if (!window.recaptchaVerifier) {
+        window.recaptchaVerifier = new RecaptchaVerifier(
+          auth,
+          "sign-in-button",
+          {
+            size: "invisible",
+          }
+        );
+      }
+
+      // const appVerifier = new RecaptchaVerifier(auth, "sign-in-button", {
+      //   size: "invisible",
+      // });
+
+      const formattedPhoneNumber = phone;
 
       const confirmation = await signInWithPhoneNumber(
         auth,
         formattedPhoneNumber,
-        appVerifier
+        window.recaptchaVerifier
       );
 
       setConfirmationResult(confirmation);
@@ -89,7 +101,7 @@ const EmployeeLoginPage = () => {
     try {
       let result = await confirmationResult.confirm(otp);
       if (result) {
-        const formattedPhoneNumber = `+92${phone.replace(/\D/g, "")}`;
+        const formattedPhoneNumber = phone;
         let params = {
           phone: formattedPhoneNumber,
         };
@@ -141,11 +153,18 @@ const EmployeeLoginPage = () => {
           </h1>
 
           <div className="lg:max-w-[541px] w-auto h-[52px] ">
-            <input
+            {/* <input
               type="text"
               className="w-full px-4 py-2 space-x-8 border outline-none rounded-xl lg:text-sm text-xs font-normal placeholder:text-[#909198]"
               placeholder="+91 - enter your 10 digit mobile number |"
               onChange={(e) => setPhone(e.target.value)}
+            /> */}
+            <PhoneInput
+              placeholder="1234567890"
+              limitMaxLength={10}
+              value={phone}
+              defaultCountry="IN"
+              onChange={setPhone}
             />
             <p
               className={`text-xs text-[#909198] ${
