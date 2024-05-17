@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -12,14 +12,33 @@ import Magnifer from "@/public/Magnifer.png";
 import filter from "@/public/filter.png";
 import FilterComp from "@/app/components/Filter";
 import HeadBarComp from "@/app/components/Headbar";
+import { useSelector } from "react-redux";
+import { getAllJobs } from "../services";
+import { setAllJobs } from "../redux";
 
 const JobsPage = () => {
+  const { allJobs } = useSelector((state) => state.root.user);
   const [filerOpen, setFilterOpen] = useState(false);
   const [jobData, setJobData] = useState([]);
   const handleDataReceived = (data) => {
     setJobData(data);
   };
   console.log("Job data in MAin Page is ", jobData);
+
+  const fetchJobs = () => {
+    getAllJobs()
+      .then((res) => {
+        console.log("ress....", res?.data);
+        dispatch(setAllJobs(res?.data?.jobs));
+      })
+      .catch((err) => {
+        console.log("err.....", err?.message);
+      });
+  };
+  useEffect(() => {
+    fetchJobs();
+  }, []);
+
   return (
     <>
       <HeadBarComp
@@ -178,231 +197,235 @@ const JobsPage = () => {
           </div>
         </div>
 
-        {/* right div */}
-        <div className="flex flex-col items-start justify-start w-full h-full gap-4 duration-300 text-start">
-          <h1 className="text-[#949494] text-base font-semibold">
-            {`Result For `}
-          </h1>
-          <h1 className="text-[#434343] text-2xl font-semibold">
-            {`Stocking Associate`}
-          </h1>
+        {allJobs?.map((item, idx) => (
+          <div
+            key={idx}
+            className="flex flex-col items-start justify-start w-full h-full gap-4 duration-300 text-start"
+          >
+            <h1 className="text-[#949494] text-base font-semibold">
+              {`Result For `}
+            </h1>
+            <h1 className="text-[#434343] text-2xl font-semibold">
+              {`Stocking Associate`}
+            </h1>
 
-          {/* card div */}
-          <div className="flex flex-col items-center justify-center w-full h-auto gap-4">
-            {/* card 1 */}
-            <div className="w-full flex flex-col justify-start items-start h-auto bg-[#FFFFFF] p-4 gap-2 rounded-2xl drop-shadow-sm">
-              <div className="text-[#4FAD2E] flex justify-center items-center text-center text-[10px] font-semibold w-auto h-6 px-4 py-1 rounded-full bg-[#4FAD2E1A]">
-                {`TOP MATCHED`}
-              </div>
+            {/* card div */}
+            <div className="flex flex-col items-center justify-center w-full h-auto gap-4">
+              {/* card 1 */}
+              <div className="w-full flex flex-col justify-start items-start h-auto bg-[#FFFFFF] p-4 gap-2 rounded-2xl drop-shadow-sm">
+                <div className="text-[#4FAD2E] flex justify-center items-center text-center text-[10px] font-semibold w-auto h-6 px-4 py-1 rounded-full bg-[#4FAD2E1A]">
+                  {`TOP MATCHED`}
+                </div>
 
-              <div className="flex items-center justify-between w-full h-auto ">
-                <h1 className="text-[#393A44] text-[16px] font-semibold">
-                  {`Stocking Associate`}
+                <div className="flex items-center justify-between w-full h-auto ">
+                  <h1 className="text-[#393A44] text-[16px] font-semibold">
+                    {`Stocking Associate`}
+                  </h1>
+                  <Link href={"/job-details"}>
+                    <button className="bg-[#3F6EEC] flex justify-center items-center text-center rounded-full font-normal text-[10px] w-auto h-[28px] text-white gap-2 py-1 px-2">
+                      <span>{`View Detail`}</span>
+                      <Image
+                        src={ArrowForward}
+                        alt="arrow"
+                        className="object-contain w-4 h-4"
+                      />
+                    </button>
+                  </Link>
+                </div>
+
+                <h1 className="text-[#393A44] text-[14px] font-semibold">
+                  {`12,000$ - 16,000`}
                 </h1>
-                <Link href={"/job-details"}>
-                  <button className="bg-[#3F6EEC] flex justify-center items-center text-center rounded-full font-normal text-[10px] w-auto h-[28px] text-white gap-2 py-1 px-2">
-                    <span>{`View Detail`}</span>
+
+                <div className="w-full h-[2px] bg-[#0000000D]"></div>
+
+                <div className="flex items-center justify-start w-full h-auto gap-2 flex-nowrap">
+                  <Image src={Bag} alt="bag" className="w-5 h-5 " />
+                  <p className="text-[#909198] font-normal text-xs">
+                    {`total solution fintech `}
+                  </p>
+                </div>
+
+                <div className="flex items-center justify-start w-full h-auto gap-2 flex-nowrap">
+                  <Image src={MapPoint} alt="bag" className="w-5 h-5 " />
+                  <p className="text-[#909198] font-normal text-xs">
+                    {`ul. Chodkiewicza Karola 111, Chorzów 41-506`}
+                  </p>
+                </div>
+
+                <div className="flex flex-wrap items-center justify-start w-full h-auto gap-2">
+                  <span className="border text-[10px] font-normal text-[#909198] rounded-full border-[#0000001A] h-6 w-auto p-2 flex justify-center items-center text-center">
+                    {`Ss Vacanies`}
+                  </span>
+
+                  <span className="border text-[10px] font-normal text-[#909198] rounded-full border-[#0000001A] h-6 w-auto p-2 flex justify-center items-center text-center">
+                    {`Ss Vacanies`}
+                  </span>
+                </div>
+
+                <div className="w-full h-[2px] bg-[#0000000D]"></div>
+
+                <div className="flex items-center justify-between w-full h-auto">
+                  <span className="text-[#393A44] text-[10px] font-normal">
+                    {`other industry`}
+                  </span>
+
+                  <div className="bg-[#4FAD2E1A] text-[#4FAD2E] text-[10px] font-semibold w-auto h-6 rounded-full flex justify-center items-center gap-2 py-2 px-4">
                     <Image
-                      src={ArrowForward}
-                      alt="arrow"
+                      src={VerifiedCheck}
+                      alt="VerifiedCheck"
                       className="object-contain w-4 h-4"
                     />
-                  </button>
-                </Link>
-              </div>
 
-              <h1 className="text-[#393A44] text-[14px] font-semibold">
-                {`12,000$ - 16,000`}
-              </h1>
-
-              <div className="w-full h-[2px] bg-[#0000000D]"></div>
-
-              <div className="flex items-center justify-start w-full h-auto gap-2 flex-nowrap">
-                <Image src={Bag} alt="bag" className="w-5 h-5 " />
-                <p className="text-[#909198] font-normal text-xs">
-                  {`total solution fintech `}
-                </p>
-              </div>
-
-              <div className="flex items-center justify-start w-full h-auto gap-2 flex-nowrap">
-                <Image src={MapPoint} alt="bag" className="w-5 h-5 " />
-                <p className="text-[#909198] font-normal text-xs">
-                  {`ul. Chodkiewicza Karola 111, Chorzów 41-506`}
-                </p>
-              </div>
-
-              <div className="flex flex-wrap items-center justify-start w-full h-auto gap-2">
-                <span className="border text-[10px] font-normal text-[#909198] rounded-full border-[#0000001A] h-6 w-auto p-2 flex justify-center items-center text-center">
-                  {`Ss Vacanies`}
-                </span>
-
-                <span className="border text-[10px] font-normal text-[#909198] rounded-full border-[#0000001A] h-6 w-auto p-2 flex justify-center items-center text-center">
-                  {`Ss Vacanies`}
-                </span>
-              </div>
-
-              <div className="w-full h-[2px] bg-[#0000000D]"></div>
-
-              <div className="flex items-center justify-between w-full h-auto">
-                <span className="text-[#393A44] text-[10px] font-normal">
-                  {`other industry`}
-                </span>
-
-                <div className="bg-[#4FAD2E1A] text-[#4FAD2E] text-[10px] font-semibold w-auto h-6 rounded-full flex justify-center items-center gap-2 py-2 px-4">
-                  <Image
-                    src={VerifiedCheck}
-                    alt="VerifiedCheck"
-                    className="object-contain w-4 h-4"
-                  />
-
-                  <span>{`Verified`}</span>
+                    <span>{`Verified`}</span>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            {/* card 1 */}
-            <div className="w-full flex flex-col justify-start items-start h-auto bg-[#FFFFFF] p-4 gap-2 rounded-2xl drop-shadow-sm">
-              <div className="text-[#4FAD2E] flex justify-center items-center text-center text-[10px] font-semibold w-auto h-6 px-4 py-1 rounded-full bg-[#4FAD2E1A]">
-                {`TOP MATCHED`}
-              </div>
+              {/* card 1 */}
+              <div className="w-full flex flex-col justify-start items-start h-auto bg-[#FFFFFF] p-4 gap-2 rounded-2xl drop-shadow-sm">
+                <div className="text-[#4FAD2E] flex justify-center items-center text-center text-[10px] font-semibold w-auto h-6 px-4 py-1 rounded-full bg-[#4FAD2E1A]">
+                  {`TOP MATCHED`}
+                </div>
 
-              <div className="flex items-center justify-between w-full h-auto ">
-                <h1 className="text-[#393A44] text-[16px] font-semibold">
-                  {`Stocking Associate`}
+                <div className="flex items-center justify-between w-full h-auto ">
+                  <h1 className="text-[#393A44] text-[16px] font-semibold">
+                    {`Stocking Associate`}
+                  </h1>
+                  <Link href={"/job-details"}>
+                    <button className="bg-[#3F6EEC] flex justify-center items-center text-center rounded-full font-normal text-[10px] w-auto h-[28px] text-white gap-2 py-1 px-2">
+                      <span>{`View Detail`}</span>
+                      <Image
+                        src={ArrowForward}
+                        alt="arrow"
+                        className="object-contain w-4 h-4"
+                      />
+                    </button>
+                  </Link>
+                </div>
+
+                <h1 className="text-[#393A44] text-[14px] font-semibold">
+                  {`12,000$ - 16,000`}
                 </h1>
-                <Link href={"/job-details"}>
-                  <button className="bg-[#3F6EEC] flex justify-center items-center text-center rounded-full font-normal text-[10px] w-auto h-[28px] text-white gap-2 py-1 px-2">
-                    <span>{`View Detail`}</span>
+
+                <div className="w-full h-[2px] bg-[#0000000D]"></div>
+
+                <div className="flex items-center justify-start w-full h-auto gap-2 flex-nowrap">
+                  <Image src={Bag} alt="bag" className="w-5 h-5 " />
+                  <p className="text-[#909198] font-normal text-xs">
+                    {`total solution fintech `}
+                  </p>
+                </div>
+
+                <div className="flex items-center justify-start w-full h-auto gap-2 flex-nowrap">
+                  <Image src={MapPoint} alt="bag" className="w-5 h-5 " />
+                  <p className="text-[#909198] font-normal text-xs">
+                    {`ul. Chodkiewicza Karola 111, Chorzów 41-506`}
+                  </p>
+                </div>
+
+                <div className="flex flex-wrap items-center justify-start w-full h-auto gap-2">
+                  <span className="border text-[10px] font-normal text-[#909198] rounded-full border-[#0000001A] h-6 w-auto p-2 flex justify-center items-center text-center">
+                    {`Ss Vacanies`}
+                  </span>
+
+                  <span className="border text-[10px] font-normal text-[#909198] rounded-full border-[#0000001A] h-6 w-auto p-2 flex justify-center items-center text-center">
+                    {`Ss Vacanies`}
+                  </span>
+                </div>
+
+                <div className="w-full h-[2px] bg-[#0000000D]"></div>
+
+                <div className="flex items-center justify-between w-full h-auto">
+                  <span className="text-[#393A44] text-[10px] font-normal">
+                    {`other industry`}
+                  </span>
+
+                  <div className="bg-[#4FAD2E1A] text-[#4FAD2E] text-[10px] font-semibold w-auto h-6 rounded-full flex justify-center items-center gap-2 py-2 px-4">
                     <Image
-                      src={ArrowForward}
-                      alt="arrow"
+                      src={VerifiedCheck}
+                      alt="VerifiedCheck"
                       className="object-contain w-4 h-4"
                     />
-                  </button>
-                </Link>
-              </div>
 
-              <h1 className="text-[#393A44] text-[14px] font-semibold">
-                {`12,000$ - 16,000`}
-              </h1>
-
-              <div className="w-full h-[2px] bg-[#0000000D]"></div>
-
-              <div className="flex items-center justify-start w-full h-auto gap-2 flex-nowrap">
-                <Image src={Bag} alt="bag" className="w-5 h-5 " />
-                <p className="text-[#909198] font-normal text-xs">
-                  {`total solution fintech `}
-                </p>
-              </div>
-
-              <div className="flex items-center justify-start w-full h-auto gap-2 flex-nowrap">
-                <Image src={MapPoint} alt="bag" className="w-5 h-5 " />
-                <p className="text-[#909198] font-normal text-xs">
-                  {`ul. Chodkiewicza Karola 111, Chorzów 41-506`}
-                </p>
-              </div>
-
-              <div className="flex flex-wrap items-center justify-start w-full h-auto gap-2">
-                <span className="border text-[10px] font-normal text-[#909198] rounded-full border-[#0000001A] h-6 w-auto p-2 flex justify-center items-center text-center">
-                  {`Ss Vacanies`}
-                </span>
-
-                <span className="border text-[10px] font-normal text-[#909198] rounded-full border-[#0000001A] h-6 w-auto p-2 flex justify-center items-center text-center">
-                  {`Ss Vacanies`}
-                </span>
-              </div>
-
-              <div className="w-full h-[2px] bg-[#0000000D]"></div>
-
-              <div className="flex items-center justify-between w-full h-auto">
-                <span className="text-[#393A44] text-[10px] font-normal">
-                  {`other industry`}
-                </span>
-
-                <div className="bg-[#4FAD2E1A] text-[#4FAD2E] text-[10px] font-semibold w-auto h-6 rounded-full flex justify-center items-center gap-2 py-2 px-4">
-                  <Image
-                    src={VerifiedCheck}
-                    alt="VerifiedCheck"
-                    className="object-contain w-4 h-4"
-                  />
-
-                  <span>{`Verified`}</span>
+                    <span>{`Verified`}</span>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            {/* card 1 */}
-            <div className="w-full flex flex-col justify-start items-start h-auto bg-[#FFFFFF] p-4 gap-2 rounded-2xl drop-shadow-sm">
-              <div className="text-[#4FAD2E] flex justify-center items-center text-center text-[10px] font-semibold w-auto h-6 px-4 py-1 rounded-full bg-[#4FAD2E1A]">
-                {`TOP MATCHED`}
-              </div>
+              {/* card 1 */}
+              <div className="w-full flex flex-col justify-start items-start h-auto bg-[#FFFFFF] p-4 gap-2 rounded-2xl drop-shadow-sm">
+                <div className="text-[#4FAD2E] flex justify-center items-center text-center text-[10px] font-semibold w-auto h-6 px-4 py-1 rounded-full bg-[#4FAD2E1A]">
+                  {`TOP MATCHED`}
+                </div>
 
-              <div className="flex items-center justify-between w-full h-auto ">
-                <h1 className="text-[#393A44] text-[16px] font-semibold">
-                  {`Stocking Associate`}
+                <div className="flex items-center justify-between w-full h-auto ">
+                  <h1 className="text-[#393A44] text-[16px] font-semibold">
+                    {`Stocking Associate`}
+                  </h1>
+                  <Link href={"/job-details"}>
+                    <button className="bg-[#3F6EEC] flex justify-center items-center text-center rounded-full font-normal text-[10px] w-auto h-[28px] text-white gap-2 py-1 px-2">
+                      <span>{`View Detail`}</span>
+                      <Image
+                        src={ArrowForward}
+                        alt="arrow"
+                        className="object-contain w-4 h-4"
+                      />
+                    </button>
+                  </Link>
+                </div>
+
+                <h1 className="text-[#393A44] text-[14px] font-semibold">
+                  {`12,000$ - 16,000`}
                 </h1>
-                <Link href={"/job-details"}>
-                  <button className="bg-[#3F6EEC] flex justify-center items-center text-center rounded-full font-normal text-[10px] w-auto h-[28px] text-white gap-2 py-1 px-2">
-                    <span>{`View Detail`}</span>
+
+                <div className="w-full h-[2px] bg-[#0000000D]"></div>
+
+                <div className="flex items-center justify-start w-full h-auto gap-2 flex-nowrap">
+                  <Image src={Bag} alt="bag" className="w-5 h-5 " />
+                  <p className="text-[#909198] font-normal text-xs">
+                    {`total solution fintech `}
+                  </p>
+                </div>
+
+                <div className="flex items-center justify-start w-full h-auto gap-2 flex-nowrap">
+                  <Image src={MapPoint} alt="bag" className="w-5 h-5 " />
+                  <p className="text-[#909198] font-normal text-xs">
+                    {`ul. Chodkiewicza Karola 111, Chorzów 41-506`}
+                  </p>
+                </div>
+
+                <div className="flex flex-wrap items-center justify-start w-full h-auto gap-2">
+                  <span className="border text-[10px] font-normal text-[#909198] rounded-full border-[#0000001A] h-6 w-auto p-2 flex justify-center items-center text-center">
+                    {`Ss Vacanies`}
+                  </span>
+
+                  <span className="border text-[10px] font-normal text-[#909198] rounded-full border-[#0000001A] h-6 w-auto p-2 flex justify-center items-center text-center">
+                    {`Ss Vacanies`}
+                  </span>
+                </div>
+
+                <div className="w-full h-[2px] bg-[#0000000D]"></div>
+
+                <div className="flex items-center justify-between w-full h-auto">
+                  <span className="text-[#393A44] text-[10px] font-normal">
+                    {`other industry`}
+                  </span>
+
+                  <div className="bg-[#4FAD2E1A] text-[#4FAD2E] text-[10px] font-semibold w-auto h-6 rounded-full flex justify-center items-center gap-2 py-2 px-4">
                     <Image
-                      src={ArrowForward}
-                      alt="arrow"
+                      src={VerifiedCheck}
+                      alt="VerifiedCheck"
                       className="object-contain w-4 h-4"
                     />
-                  </button>
-                </Link>
-              </div>
 
-              <h1 className="text-[#393A44] text-[14px] font-semibold">
-                {`12,000$ - 16,000`}
-              </h1>
-
-              <div className="w-full h-[2px] bg-[#0000000D]"></div>
-
-              <div className="flex items-center justify-start w-full h-auto gap-2 flex-nowrap">
-                <Image src={Bag} alt="bag" className="w-5 h-5 " />
-                <p className="text-[#909198] font-normal text-xs">
-                  {`total solution fintech `}
-                </p>
-              </div>
-
-              <div className="flex items-center justify-start w-full h-auto gap-2 flex-nowrap">
-                <Image src={MapPoint} alt="bag" className="w-5 h-5 " />
-                <p className="text-[#909198] font-normal text-xs">
-                  {`ul. Chodkiewicza Karola 111, Chorzów 41-506`}
-                </p>
-              </div>
-
-              <div className="flex flex-wrap items-center justify-start w-full h-auto gap-2">
-                <span className="border text-[10px] font-normal text-[#909198] rounded-full border-[#0000001A] h-6 w-auto p-2 flex justify-center items-center text-center">
-                  {`Ss Vacanies`}
-                </span>
-
-                <span className="border text-[10px] font-normal text-[#909198] rounded-full border-[#0000001A] h-6 w-auto p-2 flex justify-center items-center text-center">
-                  {`Ss Vacanies`}
-                </span>
-              </div>
-
-              <div className="w-full h-[2px] bg-[#0000000D]"></div>
-
-              <div className="flex items-center justify-between w-full h-auto">
-                <span className="text-[#393A44] text-[10px] font-normal">
-                  {`other industry`}
-                </span>
-
-                <div className="bg-[#4FAD2E1A] text-[#4FAD2E] text-[10px] font-semibold w-auto h-6 rounded-full flex justify-center items-center gap-2 py-2 px-4">
-                  <Image
-                    src={VerifiedCheck}
-                    alt="VerifiedCheck"
-                    className="object-contain w-4 h-4"
-                  />
-
-                  <span>{`Verified`}</span>
+                    <span>{`Verified`}</span>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        ))}
       </div>
     </>
   );
