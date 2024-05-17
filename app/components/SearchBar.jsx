@@ -1,16 +1,40 @@
-// !imports
-import React from "react";
+"use client";
+
+import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-
-// !imports
 import ArrowBlue from "@/public/ArrowBlue.png";
-
-// ! lib imports
-import { CiSearch } from "react-icons/ci";
-import { CiLocationOn } from "react-icons/ci";
+import { CiSearch, CiLocationOn } from "react-icons/ci";
 
 const SearchBarComp = () => {
+  const [isDivVisible, setDivVisible] = useState(false);
+  const searchInputRef = useRef(null);
+  const divRef = useRef(null);
+
+  const handleFocus = () => {
+    setDivVisible(true);
+  };
+
+  const handlePClick = () => {
+    setDivVisible(false);
+  };
+
+  const handleClickOutside = (event) => {
+    if (
+      divRef.current &&
+      !divRef.current.contains(event.target) &&
+      !searchInputRef.current.contains(event.target)
+    ) {
+      setDivVisible(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
   return (
     <>
       {/* main container */}
@@ -23,13 +47,35 @@ const SearchBarComp = () => {
           <button>
             <CiSearch className="w-6 h-6 text-[#3F6EEC]" />
           </button>
-          <Link href="/jobs">
-            <input
-              type="search"
-              placeholder={`Search Jobs By company`}
-              className="text-sm font-normal text-[#909198] outline-none bg-transparent w-full"
-            />
-          </Link>
+
+          <input
+            type="search"
+            placeholder="Search Jobs By company"
+            className="text-sm font-normal relative text-[#909198] outline-none bg-transparent w-full"
+            onFocus={handleFocus}
+            ref={searchInputRef}
+          />
+          {isDivVisible && (
+            <div
+              ref={divRef}
+              className="w-[280px] absolute top-[75px] bg-white rounded-md p-3"
+            >
+              <Link href="/jobs">
+                <p
+                  onClick={handlePClick}
+                  className="p-2 font-medium font-[14px] hover:"
+                >
+                  Logo Desgin
+                </p>
+              </Link>
+              <p onClick={handlePClick} className="p-2 font-medium font-[14px]">
+                Logo Desginer
+              </p>
+              <p onClick={handlePClick} className="p-2 font-medium font-[14px]">
+                Logo Graphic
+              </p>
+            </div>
+          )}
         </label>
 
         {/* divider */}

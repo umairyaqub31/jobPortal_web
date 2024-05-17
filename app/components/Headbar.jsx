@@ -115,7 +115,7 @@ const HeadBarComp = ({
                     </button>
                     <input
                       type="search"
-                      placeholder={`Search Jobs By ‘company’`}
+                      placeholder={`s By ‘company’`}
                       className="text-sm font-normal text-[#909198] outline-none bg-transparent"
                       onChange={(e) => {
                         // setJobtitle(e.target.value);
