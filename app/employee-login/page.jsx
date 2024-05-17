@@ -60,16 +60,26 @@ const EmployeeLoginPage = () => {
     setLoading(true);
 
     try {
-      const appVerifier = new RecaptchaVerifier(auth, "sign-in-button", {
-        size: "invisible",
-      });
-      // const formattedPhoneNumber = `+${phone.replace(/\D/g, "")}`;
+      if (!window.recaptchaVerifier) {
+        window.recaptchaVerifier = new RecaptchaVerifier(
+          auth,
+          "sign-in-button",
+          {
+            size: "invisible",
+          }
+        );
+      }
+
+      // const appVerifier = new RecaptchaVerifier(auth, "sign-in-button", {
+      //   size: "invisible",
+      // });
+
       const formattedPhoneNumber = phone;
 
       const confirmation = await signInWithPhoneNumber(
         auth,
         formattedPhoneNumber,
-        appVerifier
+        window.recaptchaVerifier
       );
 
       setConfirmationResult(confirmation);

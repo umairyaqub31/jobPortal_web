@@ -1,4 +1,3 @@
-import { candidateLogin } from "@/app/services";
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
