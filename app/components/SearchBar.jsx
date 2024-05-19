@@ -9,10 +9,21 @@ import { CiSearch, CiLocationOn } from "react-icons/ci";
 const SearchBarComp = () => {
   const [isDivVisible, setDivVisible] = useState(false);
   const searchInputRef = useRef(null);
+  const [searchText, setSearchText] = useState("");
   const divRef = useRef(null);
 
-  const handleFocus = () => {
-    setDivVisible(true);
+  useEffect(() => {
+    if (searchText) {
+      setDivVisible(true);
+    } else {
+      setDivVisible(false);
+    }
+  }, [searchText]);
+  const handleFocus = () => {};
+
+  const handleChange = (e) => {
+    console.log("ee......", e.target.value);
+    setSearchText(e.target.value);
   };
 
   const handlePClick = () => {
@@ -50,9 +61,10 @@ const SearchBarComp = () => {
 
           <input
             type="search"
+            onChange={(e) => handleChange(e)}
             placeholder="Search Jobs By company"
             className="text-sm font-normal relative text-[#909198] outline-none bg-transparent w-full"
-            onFocus={handleFocus}
+            // onFocus={handleFocus}
             ref={searchInputRef}
           />
           {isDivVisible && (

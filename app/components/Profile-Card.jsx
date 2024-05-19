@@ -27,6 +27,7 @@ const ProfileCardComp = (props) => {
   };
   return (
     <>
+    
       <div className="flex flex-col items-center justify-start w-full h-auto gap-4 md:px-4 px-2 pt-6 pb-4 bg-white border rounded-2xl">
         {/* top container */}
         <div className="flex md:flex-row flex-col gap-4 items-center justify-between w-full h-auto">

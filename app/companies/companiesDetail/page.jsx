@@ -21,7 +21,7 @@ export default function CompaniesDetails() {
   const { companyName, companyId } = useSelector((state) => state.root.user);
   console.log("COMPANY NAME IS", companyName);
   console.log("COMPANY Id IS", companyId);
-  const [selectedTab, setSelectedTab] = useState("Overview");
+  const [selectedTab, setSelectedTab] = useState("Jobs");
   const [jobs, setJobs] = useState([]);
 
   const handletabs = (v) => {
@@ -77,7 +77,7 @@ export default function CompaniesDetails() {
           </div>
         </div>
         <div className="flex mt-[28px]">
-          <p
+          {/* <p
             className={`font-semibold text-[18px] mr-[53px] cursor-pointer ${
               selectedTab == "Overview"
                 ? "border-b-2 border-black text-black"
@@ -86,8 +86,8 @@ export default function CompaniesDetails() {
             onClick={() => handletabs("Overview")}
           >
             Overview
-          </p>
-          <p
+          </p> */}
+          {/* <p
             className={`font-semibold text-[18px] mr-[53px] cursor-pointer ${
               selectedTab == "Join"
                 ? "border-b-2 border-black text-black"
@@ -96,7 +96,7 @@ export default function CompaniesDetails() {
             onClick={() => handletabs("Join")}
           >
             Why Join Us
-          </p>
+          </p> */}
           <p
             className={`font-semibold text-[18px] cursor-pointer ${
               selectedTab === "Jobs"
@@ -298,8 +298,8 @@ export default function CompaniesDetails() {
             ))}
           </div>
         )}
-        {selectedTab == "Overview" && <p>Overview</p>}
-        {selectedTab == "Join" && <p>Join</p>}
+        {/* {selectedTab == "Overview" && <p>Overview</p>}
+        {selectedTab == "Join" && <p>Join</p>} */}
       </div>
     </div>
   );

@@ -22,6 +22,7 @@ import HeadBarComp from "@/app/components/Headbar";
 import { applyJob, getjobDetails } from "../services";
 import { useSelector } from "react-redux";
 import Loader from "../components/loader";
+import CustomModal from "../components/CustomModal";
 
 const JobDetailsPage = () => {
   const { jobId } = useSelector((state) => state.root.user);
@@ -29,6 +30,7 @@ const JobDetailsPage = () => {
   const [seeMore, setSeeMore] = useState(false);
   const [jobDetails, setJobDetails] = useState({});
   const [loading, setLoading] = useState(false);
+  const [modal, setModal] = useState(false);
 
   const fetchJobDetails = () => {
     getjobDetails(jobId)
@@ -55,6 +57,7 @@ const JobDetailsPage = () => {
       })
       .catch((err) => {
         console.log("err.....", err?.message);
+        setModal(true);
       })
       .finally(() => setLoading(false));
   };
@@ -741,6 +744,24 @@ const JobDetailsPage = () => {
             </div>
           </div>
         </div>
+        <CustomModal showModal={modal}>
+          <div style={{ width: "300px" }}>
+            <p>please login first!</p>
+            <button
+              style={{
+                backgroundColor: "green",
+                color: "white",
+                border: "none",
+                padding: "10px 20px",
+                borderRadius: "5px",
+                cursor: "pointer",
+              }}
+              onClick={() => setModal(false)}
+            >
+              Okay
+            </button>
+          </div>
+        </CustomModal>
       </div>
     </>
   );
