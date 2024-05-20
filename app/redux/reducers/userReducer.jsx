@@ -48,6 +48,8 @@ const initialState = {
   },
 
   allJobs: [],
+  companyid: "",
+  jobrole: "",
 };
 
 export const userReducer = createSlice({
@@ -96,6 +98,12 @@ export const userReducer = createSlice({
     setAllJobs: (state, action) => {
       state.allJobs = action.payload;
     },
+    setCompanyid: (state, action) => {
+      state.companyid = action.payload;
+    },
+    setJobRole: (state, action) => {
+      state.jobrole = action.payload;
+    },
   },
 });
 
@@ -113,6 +121,8 @@ export const {
   setCandidateProfile,
   setEmployeeProfile,
   setAllJobs,
+  setCompanyid,
+  setJobRole,
 } = userReducer.actions;
 
 export default userReducer.reducer;

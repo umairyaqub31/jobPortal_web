@@ -35,6 +35,7 @@ export const getJobRoles = () => {
 };
 
 export const getCompanyJobs = (pageno, companyId) => {
+  console.log("page no and ID", pageno, companyId);
   return HTTP_CLIENT.get(
     `${ENDPOINTS.CAND_GETCOMPANYJOB}?page=${pageno}&companyId=${companyId}`
   );
@@ -50,4 +51,18 @@ export const uploadFile = (params) => {
 
 export const applyJob = (params) => {
   return HTTP_CLIENT.post(ENDPOINTS.CAND_APPLYJOB, params);
+};
+
+export const getSearchCompanyorRole = (company, role) => {
+  return HTTP_CLIENT.get(
+    `${ENDPOINTS.searchCompanyorRole}?company=${company}&role=${role}`
+  );
+};
+
+export const getCandiadteJob = (id) => {
+  return HTTP_CLIENT.get(`${ENDPOINTS.CAN_GET_JOB}?jobId=${id}`);
+};
+
+export const getCAN_SEARCHJOBSBYROLES = (role) => {
+  return HTTP_CLIENT.get(`${ENDPOINTS.CAN_SEARCHJOBSBYROLES}?role=${role}`);
 };
