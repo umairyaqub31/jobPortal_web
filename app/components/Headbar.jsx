@@ -219,7 +219,7 @@ const HeadBarComp = ({
 
                         {/* buttons */}
                         <div
-                          onClick={ViewProfile}
+                          // onClick={ViewProfile}
                           className="flex items-center justify-start w-full h-auto gap-2"
                         >
                           <Image
@@ -230,28 +230,30 @@ const HeadBarComp = ({
                             className="object-contain w-4 h-4"
                           />
                           <span
-                            // onClick={ViewProfile}
+                            onClick={ViewProfile}
                             className="text-[#393A44] text-xs font-normal"
                           >
                             View Profile
                           </span>
                         </div>
 
-                        <Link
-                          href="/company-profile"
-                          className="flex items-center justify-start w-full h-auto gap-2 flex-nowrap"
-                        >
-                          <Image
-                            src={City}
-                            alt="QuestionCircle"
-                            width={500}
-                            height={500}
-                            className="object-contain w-4 h-4"
-                          />
-                          <span className="text-[#393A44] text-xs font-normal">
-                            Company Profile
-                          </span>
-                        </Link>
+                        {loginusername !== "candidate" && (
+                          <Link
+                            href="/company-profile"
+                            className="flex items-center justify-start w-full h-auto gap-2 flex-nowrap"
+                          >
+                            <Image
+                              src={City}
+                              alt="QuestionCircle"
+                              width={500}
+                              height={500}
+                              className="object-contain w-4 h-4"
+                            />
+                            <span className="text-[#393A44] text-xs font-normal">
+                              Company Profile
+                            </span>
+                          </Link>
+                        )}
 
                         <Link
                           onClick={handleLogout}
