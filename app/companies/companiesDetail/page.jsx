@@ -16,6 +16,14 @@ import { getCompanyJobs } from "@/app/services";
 import { useDispatch } from "react-redux";
 import Link from "next/link";
 import { setJobId } from "@/app/redux";
+// const jobbs = [
+//   {
+//     jobTitle: "Abcd",
+//     description: "sdnqwdqwb",
+//     shift: "night",
+//     jobArea: "dqnwipfjqf",
+//   },
+// ];
 export default function CompaniesDetails() {
   const dispatch = useDispatch();
   const { companyName, companyId } = useSelector((state) => state.root.user);
@@ -47,27 +55,27 @@ export default function CompaniesDetails() {
   console.log("JOBSSSSSSSSSSSSSSSSSSSss", jobs);
   return (
     <div>
-      <div className="p-[75px]">
-        <div className="flex">
-          <div className="bg-gray-300  rounded-[16px] shadow h-[152px] w-[152px]"></div>
+      <div className="lg:p-[75px] p-[20px]">
+        <div className="flex flex-wrap lg:flex-nowrap sm:flex-wrap">
+          <div className="bg-gray-300 flex lg:m-0 m-auto rounded-[16px] shadow h-[152px] w-[152px]"></div>
           <div className="p-[21px]">
             <p className="font-semibold text-[30px] text-black">
               {companyName}
             </p>
             <p
-              className="font-semibold text-[18px] mt-[5px] "
+              className="font-semibold text-[18px] mt-[5px] lg:text-start text-center "
               style={{ color: "rgba(0, 0, 0, 0.8)" }}
             >
               Transforming the Future, Now
             </p>
             <div
-              className="flex mt-[16px]"
+              className="flex flex-wrap lg:flex-nowrap sm:flex-wrap gap-4 lg:m-0 m-auto mt-[16px]"
               style={{ color: "rgba(0, 0, 0, 0.8)" }}
             >
-              <div className="rounded-full  border-2 py-[6px] px=[13px] px-3 mr-[10px]">
+              <div className="rounded-full  border-2 py-[6px] px=[13px] px-3 ">
                 <p className="text-[16px]">IT Services & Consulting</p>
               </div>
-              <div className="rounded-[40px] py-[6px] px=[13px] border-2 px-3 mr-[10px]">
+              <div className="rounded-[40px] py-[6px] px=[13px] border-2 px-3 ">
                 <p className="text-[16px]">Private</p>
               </div>
               <div className="rounded-[40px] py-[6px] px=[13px] border-2 px-3">
@@ -76,9 +84,9 @@ export default function CompaniesDetails() {
             </div>
           </div>
         </div>
-        <div className="flex mt-[28px]">
+        <div className="flex lg:justify-start justify-center mt-[28px]">
           <p
-            className={`font-semibold text-[18px] mr-[53px] cursor-pointer ${
+            className={`font-semibold lg:text-[18px] text-[16px] mr-[53px] cursor-pointer ${
               selectedTab == "Overview"
                 ? "border-b-2 border-black text-black"
                 : "text-gray-500"
@@ -88,7 +96,7 @@ export default function CompaniesDetails() {
             Overview
           </p>
           <p
-            className={`font-semibold text-[18px] mr-[53px] cursor-pointer ${
+            className={`font-semibold lg:text-[18px] text-[16px] mr-[53px] cursor-pointer ${
               selectedTab == "Join"
                 ? "border-b-2 border-black text-black"
                 : "text-gray-500"
@@ -98,7 +106,7 @@ export default function CompaniesDetails() {
             Why Join Us
           </p>
           <p
-            className={`font-semibold text-[18px] cursor-pointer ${
+            className={`font-semibold lg:text-[18px] text-[16px] cursor-pointer ${
               selectedTab === "Jobs"
                 ? "border-b-2 border-black text-black"
                 : "text-gray-500"
@@ -111,7 +119,7 @@ export default function CompaniesDetails() {
         {selectedTab == "Jobs" && (
           <div>
             <div
-              className="bg-D9D9D9   rounded-[16px] py-[31px] px-[24px] mt-[28px] shadow h-[207px] w-[1194px]"
+              className="bg-D9D9D9   rounded-[16px] py-[31px] px-[24px] mt-[28px] shadow h-auto lg:w-[80%] w-[100%] "
               style={{
                 background: "linear-gradient(#FFFFFF, #FFF4E0 )",
               }}
@@ -119,61 +127,61 @@ export default function CompaniesDetails() {
               <p className="font-semibold text-[18px] color-black  ">
                 Departments hiring at Accolite Digital
               </p>
-              <div className="flex mt-[21px]">
-                <div className="bg-white   rounded-[16px] p-[16px] mr-[20px]  shadow h-[102px] w-[213px]">
+              <div className="flex flex-wrap lg:flex-nowrap sm:flex-wrap mt-[21px] gap-4">
+                <div className="bg-white   rounded-[16px] p-[16px]   shadow h-[102px] lg:w-[20%] w-[100%] sm:w-[100%]  md:w-[100%] ">
                   <p className="font-semibold text-[18px]  ">
                     Engineering - Software & QA
                   </p>
                   <div
-                    className="flex items-center"
+                    className="flex mt-3 lg:mt-0 items-center"
                     style={{ color: "#3F6EEC" }}
                   >
                     <p className="text-[16px] ">93 openings </p>
                     <IoIosArrowForward className="ml-8" />
                   </div>
                 </div>
-                <div className="bg-white   rounded-[16px] p-[16px] mr-[20px]  shadow h-[102px] w-[213px]">
+                <div className="bg-white   rounded-[16px] p-[16px] shadow h-[102px] lg:w-[20%] w-[100%] sm:w-[100%]  md:w-[100%]">
                   <p className="font-semibold text-[18px]  ">
                     Engineering - Software & QA
                   </p>
                   <div
-                    className="flex items-center"
+                    className="flex mt-3 lg:mt-0 items-center"
                     style={{ color: "#3F6EEC" }}
                   >
                     <p className="text-[16px] ">93 openings </p>
                     <IoIosArrowForward className="ml-8" />
                   </div>
                 </div>
-                <div className="bg-white   rounded-[16px] p-[16px] mr-[20px]  shadow h-[102px] w-[213px]">
+                <div className="bg-white   rounded-[16px] p-[16px]   shadow h-[102px] lg:w-[20%] w-[100%] sm:w-[100%]  md:w-[100%]">
                   <p className="font-semibold text-[18px]  ">
                     Engineering - Software & QA
                   </p>
                   <div
-                    className="flex items-center"
+                    className="flex mt-3 lg:mt-0 items-center"
                     style={{ color: "#3F6EEC" }}
                   >
                     <p className="text-[16px] ">93 openings </p>
                     <IoIosArrowForward className="ml-8" />
                   </div>
                 </div>
-                <div className="bg-white   rounded-[16px] p-[16px] mr-[20px]  shadow h-[102px] w-[213px]">
+                <div className="bg-white   rounded-[16px] p-[16px]   shadow h-[102px] lg:w-[20%] w-[100%] sm:w-[100%]  md:w-[100%]">
                   <p className="font-semibold text-[18px]  ">
                     Engineering - Software & QA
                   </p>
                   <div
-                    className="flex items-center"
+                    className="flex mt-3 lg:mt-0 items-center"
                     style={{ color: "#3F6EEC" }}
                   >
                     <p className="text-[16px] ">93 openings </p>
                     <IoIosArrowForward className="ml-8" />
                   </div>
                 </div>
-                <div className="bg-white   rounded-[16px] p-[16px]  shadow h-[102px] w-[213px]">
+                <div className="bg-white   rounded-[16px] p-[16px]  shadow h-[102px] lg:w-[20%] w-[100%] sm:w-[100%]  md:w-[100%]">
                   <p className="font-semibold text-[18px]  ">
                     Engineering - Software & QA
                   </p>
                   <div
-                    className="flex items-center"
+                    className="flex mt-3 lg:mt-0 items-center"
                     style={{ color: "#3F6EEC" }}
                   >
                     <p className="text-[16px] ">93 openings </p>
@@ -186,23 +194,23 @@ export default function CompaniesDetails() {
               120 Jobs openings at Accolite Digital
             </p>
 
-            <div className="flex items-center mt-[15px]">
+            <div className="flex flex-wrap lg:flex-nowrap sm:flex-wrap gap-4 items-center mt-[15px]">
               <select
-                className="font-medium text-[16px] border-2 px-3 py-1 mr-[11px] rounded-full"
+                className="font-medium text-[16px] border-2 px-3 py-1  rounded-full"
                 style={{ color: "rgba(0, 0, 0, 0.6)" }}
               >
                 <option value="0">Diversity Category</option>
                 <option value="1">Audi</option>
               </select>
               <select
-                className="font-medium text-[16px] border-2 px-3 py-1 mr-[11px] rounded-full"
+                className="font-medium text-[16px] border-2 px-3 py-1  rounded-full"
                 style={{ color: "rgba(0, 0, 0, 0.6)" }}
               >
                 <option value="0">Department</option>
                 <option value="1">Audi</option>
               </select>
               <select
-                className="font-medium text-[16px] border-2 px-3 py-1 mr-[11px] rounded-full"
+                className="font-medium text-[16px] border-2 px-3 py-1  rounded-full"
                 style={{ color: "rgba(0, 0, 0, 0.6)" }}
               >
                 <option value="0">Location</option>
@@ -221,9 +229,9 @@ export default function CompaniesDetails() {
             {jobs.map((item, idx) => (
               <div
                 key={idx}
-                className="bg-D9D9D9 rounded-[16px] p-[30px] mt-[28px] shadow h-[246px] w-[715px]"
+                className="bg-D9D9D9 rounded-[16px] lg:p-[30px] p-[16px] mt-[28px] shadow h-auto lg:w-[55%] w-[100%]"
               >
-                <div className="flex justify-between">
+                <div className="flex flex-wrap lg:flex-nowrap justify-between">
                   <p className="font-semibold text-[18px]">{item.jobTitle}</p>
                   <button className="bg-[#3F6EEC] flex justify-center items-center text-center rounded-full font-normal text-[10px] w-auto h-[28px] text-white gap-2 py-1 px-2">
                     <Link
@@ -240,7 +248,7 @@ export default function CompaniesDetails() {
                     />
                   </button>
                 </div>
-                <div className="flex mt-[8px]">
+                <div className="flex lg:flex-nowrap flex-wrap mt-[8px]">
                   <p className="font-medium text-[16px]">
                     Accolite Software India Pvt Ltd
                   </p>
@@ -249,11 +257,11 @@ export default function CompaniesDetails() {
                     className="mx-[8px] h-[16px] w-[16px] mt-1"
                   />
                   <p className="font-medium text-[16px]">3.5</p>
-                  <div className="border-r-2 mx-[8px]"></div>
+                  <div className="lg:border-r-2 lg:mx-[8px] "></div>
                   <p className="font-medium text-[16px]">(678 Reviews)</p>
                 </div>
-                <div className="flex mt-[25px] items-center">
-                  <div className="flex items-center mr-[30px] ">
+                <div className="flex flex-wrap lg:flex-nowrap lg:gap-10 gap-5 mt-[25px] items-center">
+                  <div className="flex items-center   ">
                     <Image
                       src={Bag}
                       alt="Save"
@@ -261,10 +269,10 @@ export default function CompaniesDetails() {
                     />
                     <p className="text-[16px]">5-9 yrs</p>
                   </div>
-                  <div className="flex items-center mr-[30px] ">
+                  <div className="flex items-center lg:ml-0 md:ml-0 ml-auto ">
                     <p className="text-[16px]"> {item.shift} Shift</p>
                   </div>
-                  <div className="flex items-center mr-[30px] ">
+                  <div className="flex items-center  ">
                     <Image
                       src={Location}
                       alt="Location"
